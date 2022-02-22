@@ -1,0 +1,3180 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "BaronED",
+    "contact": {}
+  },
+  "host": "sb-openapi.zalopay.vn",
+  "basePath": "/v2",
+  "securityDefinitions": {},
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/create": {
+      "post": {
+        "summary": "https://sb-openapi.zalopay.vn/v2/create",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "https://sb-openapi.zalopay.vn/v2/create",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/https%3A~1~1sb-openapi.zalopay.vn~1v2~1create-request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/ProNew/UpdateCongViecList": {
+      "put": {
+        "summary": "http://vuabanhmi.com:6519/api/ProNew/UpdateCongViecList",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "http://vuabanhmi.com:6519/api/ProNew/UpdateCongViecList",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "example": [
+                {
+                  "LichLamViecBepID": 14,
+                  "NgayLamViec": "2021-06-15T00:08:10",
+                  "UpdateUserID": 141402,
+                  "UpdateHoTen": "NGUYỄN DUY KHƯƠNG",
+                  "CentralID": 1,
+                  "CentralName": "Bếp Ung Văn Khiêm",
+                  "CongViecID": 2,
+                  "TenCongViec": "Nấu Bơ 5.5 Kg",
+                  "UserID": 141402,
+                  "HoTen": "NGUYỄN DUY KHƯƠNG",
+                  "SoLgYeuCau": 5,
+                  "Status": 100,
+                  "FinalSoLg": 5,
+                  "ApproveUserID": -1,
+                  "ApproveHoTen": "",
+                  "MaNL": 132,
+                  "TenNL": "Bơ",
+                  "Details": [
+                    {
+                      "AutoID": 52,
+                      "LichLamViecBepID": 14,
+                      "UserID": 141402,
+                      "HoTen": "NGUYỄN DUY KHƯƠNG",
+                      "UpdateUserID": 141402,
+                      "UpdateHoTen": "NGUYỄN DUY KHƯƠNG",
+                      "StepID": 4,
+                      "StepName": "Bước 1",
+                      "MoTa": "Cân và chuẩn bị gia vị",
+                      "GioBatDau": "2021-06-15T00:08:10",
+                      "GioKetThuc": "2021-06-15T00:08:10",
+                      "Status": 0,
+                      "TgPauseSec": 0,
+                      "TgSecChuan": 300,
+                      "TgSecBest": 60,
+                      "PauseTimeLogs": "[]",
+                      "CVBPosID": 0
+                    }
+                  ]
+                }
+              ],
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/http%3A~1~1vuabanhmi.com%3A6519~1api~1ProNew~1UpdateCongViecListRequest"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/callbackvegal": {
+      "post": {
+        "summary": "http://localhost:300/api/zalo/hookvegal",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "http://localhost:300/api/zalo/hookvegal",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/http%3A~1~1localhost%3A300~1api~1zalo~1hookvegalrequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/zalo/callbackvegal": {
+      "post": {
+        "summary": "https://paymenthookvbm.herokuapp.com/api/zalo/hookvegal",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "https://paymenthookvbm.herokuapp.com/api/zalo/hookvegal",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/https%3A~1~1paymenthookvbm.herokuapp.com~1api~1zalo~1hookvegalrequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/momo/callbackvegal": {
+      "post": {
+        "summary": "https://paymenthookvbm.herokuapp.com/api/momo/callbackvegal",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "https://paymenthookvbm.herokuapp.com/api/momo/callbackvegal",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/https%3A~1~1paymenthookvbm.herokuapp.com~1api~1momo~1callbackvegalrequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/momo/createpaymenttest": {
+      "post": {
+        "summary": "https://paymenthookvbm.herokuapp.com/api/momo/callbackvegal1",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "https://paymenthookvbm.herokuapp.com/api/momo/callbackvegal1",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/https%3A~1~1paymenthookvbm.herokuapp.com~1api~1momo~1callbackvegalrequest1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/createpayment": {
+      "post": {
+        "summary": "http://localhost:3000/api/zalo/createpayment",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "http://localhost:3000/api/zalo/createpayment",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/http%3A~1~1localhost%3A3000~1api~1zalo~1createpaymentrequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/BillVR/ListVRMenus": {
+      "get": {
+        "summary": "http://vuabanhmi.com:6519/api/BillVR/ListVRMenus",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "http://vuabanhmi.com:6519/api/BillVR/ListVRMenus",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/UserData/GetFullSystemInfoVer2": {
+      "get": {
+        "summary": "http://vuabanhmi.com:6519/api/UserData/GetFullSystemInfoVer2",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "http://vuabanhmi.com:6519/api/UserData/GetFullSystemInfoVer2",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/json": {
+      "get": {
+        "summary": "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=14%20ung%20van%20khiem&components=country:vn&key=AIzaSyDpRFj41NIorY3s3JCluX0fgp8IobZQ0Zg",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=14%20ung%20van%20khiem&components=country:vn&key=AIzaSyDpRFj41NIorY3s3JCluX0fgp8IobZQ0Zg",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "input",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "components",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "key",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/seachaddress": {
+      "get": {
+        "summary": "http://localhost:3100/api/accesscors/seachaddress?input=14 ung van khiem&key=AIzaSyDpRFj41NIorY3s3JCluX0fgp8IobZQ0Zg",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "http://localhost:3100/api/accesscors/seachaddress?input=14ungvankhiem&key=AIzaSyDpRFj41NIorY3s3JCluX0fgp8IobZQ0Zg",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "input",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "key",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/Sms/DeviceId": {
+      "get": {
+        "summary": "http://vuabanhmi.com:6519/api/Sms/DeviceId",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "http://vuabanhmi.com:6519/api/Sms/DeviceId",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/BillVR/CreateUserApp": {
+      "post": {
+        "summary": "http://vuabanhmi.com:6519/api/BillVR/CreateUserApp",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "http://vuabanhmi.com:6519/api/BillVR/CreateUserApp",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/http%3A~1~1vuabanhmi.com%3A6519~1api~1BillVR~1CreateUserAppRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/Sms/CheckSMSCode": {
+      "post": {
+        "summary": "http://vuabanhmi.com:6519/api/Sms/CheckSMSCode?phonenumber=null&smsCode=416321",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "http://vuabanhmi.com:6519/api/Sms/CheckSMSCode?phonenumber=null&smsCode=416321",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "phonenumber",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "smsCode",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/UserData/vbm_stores": {
+      "get": {
+        "summary": "http://vuabanhmi.com:6519/api/UserData/vbm_stores",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "http://vuabanhmi.com:6519/api/UserData/vbm_stores",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/accesscors/getshiptotal": {
+      "get": {
+        "summary": "https://test.vuabanhmi.com:443/api/accesscors/getshiptotal?itemsAmount=2&range=1.3",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "https://test.vuabanhmi.com:443/api/accesscors/getshiptotal?itemsAmount=2&range=1.3",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "itemsAmount",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
+            "description": ""
+          },
+          {
+            "name": "range",
+            "in": "query",
+            "required": true,
+            "type": "number",
+            "format": "double",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/UserData/VRCheckDistanceDeli": {
+      "get": {
+        "summary": "http://vuabanhmi.com:6519/api/UserData/VRCheckDistanceDeli?lat=33.9902928&lng=-118.4441742",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "http://vuabanhmi.com:6519/api/UserData/VRCheckDistanceDeli?lat=33.9902928&lng=-118.4441742",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "lat",
+            "in": "query",
+            "required": true,
+            "type": "number",
+            "format": "double",
+            "description": ""
+          },
+          {
+            "name": "lng",
+            "in": "query",
+            "required": true,
+            "type": "number",
+            "format": "double",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/BillVR/AddNewVR": {
+      "post": {
+        "summary": "http://vuabanhmi.com:6519/api/BillVR/AddNewVR",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "http://vuabanhmi.com:6519/api/BillVR/AddNewVR",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/http%3A~1~1vuabanhmi.com%3A6519~1api~1BillVR~1AddNewVRRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/BillVR/ListUserHistory": {
+      "get": {
+        "summary": "http://vuabanhmi.com:6519/api/BillVR/ListUserHistory",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "http://vuabanhmi.com:6519/api/BillVR/ListUserHistory",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "UserID",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/momo/callbackvegalbeta": {
+      "post": {
+        "summary": "https://test.vuabanhmi.com:443/api/zalo/callbackvegalbeta",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "https://test.vuabanhmi.com:443/api/zalo/callbackvegalbeta",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "example": {},
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/createpaymenttest": {
+      "post": {
+        "summary": "https://localhost:443/api/shopeepay/createpaymenttest",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "https://localhost:443/api/shopeepay/createpaymenttest",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/https%3A~1~1localhost%3A443~1api~1shopeepay~1createpaymenttestrequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/hookpayment": {
+      "post": {
+        "summary": "https://localhost:443/api/shopeepay/createpaymenttest1",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "https://localhost:443/api/shopeepay/createpaymenttest1",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "example": {},
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/test": {
+      "get": {
+        "summary": "https://test.vuabanhmi.com/api/accesscors/test",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "https://test.vuabanhmi.com/api/accesscors/test",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/crawlplaylist": {
+      "get": {
+        "summary": "http://localhost:3102/api/track/crawlplaylist",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "http://localhost:3102/api/track/crawlplaylist",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/crawltracklist": {
+      "get": {
+        "summary": "http://localhost:3102/api/track/crawltracklist",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "http://localhost:3102/api/track/crawltracklist",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/analytist": {
+      "get": {
+        "summary": "http://localhost:3102/api/track/analytist",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "http://localhost:3102/api/track/analytist",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/search": {
+      "get": {
+        "summary": "http://localhost:3102/api/track/search?keywork=bad habiits",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "http://localhost:3102/api/track/search?keywork=badhabiits",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "keywork",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/gettrack": {
+      "get": {
+        "summary": "http://localhost:3102/api/track/gettrack?link=orJSJGHjBLI",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "http://localhost:3102/api/track/gettrack?link=orJSJGHjBLI",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "link",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/1959679531469410268": {
+      "get": {
+        "summary": "https://mp3-320s1-zmp3.zadn.vn/1c5cb06b292fc071993e/1959679531469410268?authen=exp=1628143231~acl=/1c5cb06b292fc071993e/*~hmac=34949ac6a08c632e84edb5a4cf15dab5&fs=MTYyNzk3MDQzMTgzM3x3ZWJWNnwxMDIxOTQ5ODA0fDEdUngNTUdUngMC44Nw",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "https://mp3-320s1-zmp3.zadn.vn/1c5cb06b292fc071993e/1959679531469410268?authen=exp=1628143231~acl=/1c5cb06b292fc071993e/*~hmac=34949ac6a08c632e84edb5a4cf15dab5&fs=MTYyNzk3MDQzMTgzM3x3ZWJWNnwxMDIxOTQ5ODA0fDEdUngNTUdUngMC44Nw",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authen",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "fs",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/shopeepay/createpayment": {
+      "post": {
+        "summary": "https://localhost:3100/api/shopeepay/createpayment",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "https://localhost:3100/api/shopeepay/createpayment",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/https%3A~1~1localhost%3A3100~1api~1shopeepay~1createpaymentrequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/NewRoster/FullInfoUserByUserID": {
+      "get": {
+        "summary": "http://vuabanhmi.com:6519/api/NewRoster/FullInfoUserByUserID?UserID=190710",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "http://vuabanhmi.com:6519/api/NewRoster/FullInfoUserByUserID?UserID=190710",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "UserID",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/AddNew4": {
+      "post": {
+        "summary": "http://vuabanhmi.com:1986/api/Bill/AddNew4",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "http://vuabanhmi.com:1986/api/Bill/AddNew4",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/http%3A~1~1vuabanhmi.com%3A1986~1api~1Bill~1AddNew4Request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/momo/createpayment": {
+      "post": {
+        "summary": "http://localhost:3100/api/momo/createpayment",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "http://localhost:3100/api/momo/createpayment",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/http%3A~1~1localhost%3A3100~1api~1momo~1createpaymentrequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "https://sb-openapi.zalopay.vn/v2/create-request": {
+      "title": "https://sb-openapi.zalopay.vn/v2/create-request",
+      "example": {
+        "app_time": 1625662217513,
+        "order_type": "FOOD",
+        "callback_url": "https://paymenthookvbm.herokuapp.com/api/zalo/hookvegal",
+        "bank_code": "zalopayapp",
+        "app_id": 2554,
+        "app_user": "baroned",
+        "amount": 30000,
+        "title": "test zalopay",
+        "description": "test zalopay",
+        "device_info": "",
+        "item": "[{\"itemid\":\"knb\",\"itemname\":\"kim nguyen bao\",\"itemquantity\":10,\"itemprice\":50000}]",
+        "embed_data": "{}",
+        "currency": "VND",
+        "phone": "0385994415",
+        "email": "nguyenduykhuongtqtpy@gmail.com",
+        "address": "22/27 P6 Go Vap TPHCM",
+        "app_trans_id": "2007071724",
+        "mac": "ce17e496c70eaa6c3486a3d7c71dc30fb393cc46de926a30cad7c63b84d2b7ed"
+      },
+      "type": "object",
+      "properties": {
+        "app_time": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "order_type": {
+          "type": "string"
+        },
+        "callback_url": {
+          "type": "string"
+        },
+        "bank_code": {
+          "type": "string"
+        },
+        "app_id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "app_user": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "device_info": {
+          "type": "string"
+        },
+        "item": {
+          "type": "string"
+        },
+        "embed_data": {
+          "type": "string"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "app_trans_id": {
+          "type": "string"
+        },
+        "mac": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "app_time",
+        "order_type",
+        "callback_url",
+        "bank_code",
+        "app_id",
+        "app_user",
+        "amount",
+        "title",
+        "description",
+        "device_info",
+        "item",
+        "embed_data",
+        "currency",
+        "phone",
+        "email",
+        "address",
+        "app_trans_id",
+        "mac"
+      ]
+    },
+    "http://vuabanhmi.com:6519/api/ProNew/UpdateCongViecListRequest": {
+      "title": "http://vuabanhmi.com:6519/api/ProNew/UpdateCongViecListRequest",
+      "example": {
+        "LichLamViecBepID": 14,
+        "NgayLamViec": "2021-06-15T00:08:10",
+        "UpdateUserID": 141402,
+        "UpdateHoTen": "NGUYỄN DUY KHƯƠNG",
+        "CentralID": 1,
+        "CentralName": "Bếp Ung Văn Khiêm",
+        "CongViecID": 2,
+        "TenCongViec": "Nấu Bơ 5.5 Kg",
+        "UserID": 141402,
+        "HoTen": "NGUYỄN DUY KHƯƠNG",
+        "SoLgYeuCau": 5,
+        "Status": 100,
+        "FinalSoLg": 5,
+        "ApproveUserID": -1,
+        "ApproveHoTen": "",
+        "MaNL": 132,
+        "TenNL": "Bơ",
+        "Details": [
+          {
+            "AutoID": 52,
+            "LichLamViecBepID": 14,
+            "UserID": 141402,
+            "HoTen": "NGUYỄN DUY KHƯƠNG",
+            "UpdateUserID": 141402,
+            "UpdateHoTen": "NGUYỄN DUY KHƯƠNG",
+            "StepID": 4,
+            "StepName": "Bước 1",
+            "MoTa": "Cân và chuẩn bị gia vị",
+            "GioBatDau": "2021-06-15T00:08:10",
+            "GioKetThuc": "2021-06-15T00:08:10",
+            "Status": 0,
+            "TgPauseSec": 0,
+            "TgSecChuan": 300,
+            "TgSecBest": 60,
+            "PauseTimeLogs": "[]",
+            "CVBPosID": 0
+          }
+        ]
+      },
+      "type": "object",
+      "properties": {
+        "LichLamViecBepID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "NgayLamViec": {
+          "type": "string"
+        },
+        "UpdateUserID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "UpdateHoTen": {
+          "type": "string"
+        },
+        "CentralID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "CentralName": {
+          "type": "string"
+        },
+        "CongViecID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "TenCongViec": {
+          "type": "string"
+        },
+        "UserID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "HoTen": {
+          "type": "string"
+        },
+        "SoLgYeuCau": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "FinalSoLg": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ApproveUserID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ApproveHoTen": {
+          "type": "string"
+        },
+        "MaNL": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "TenNL": {
+          "type": "string"
+        },
+        "Details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Detail"
+          }
+        }
+      },
+      "required": [
+        "LichLamViecBepID",
+        "NgayLamViec",
+        "UpdateUserID",
+        "UpdateHoTen",
+        "CentralID",
+        "CentralName",
+        "CongViecID",
+        "TenCongViec",
+        "UserID",
+        "HoTen",
+        "SoLgYeuCau",
+        "Status",
+        "FinalSoLg",
+        "ApproveUserID",
+        "ApproveHoTen",
+        "MaNL",
+        "TenNL",
+        "Details"
+      ]
+    },
+    "Detail": {
+      "title": "Detail",
+      "example": {
+        "AutoID": 52,
+        "LichLamViecBepID": 14,
+        "UserID": 141402,
+        "HoTen": "NGUYỄN DUY KHƯƠNG",
+        "UpdateUserID": 141402,
+        "UpdateHoTen": "NGUYỄN DUY KHƯƠNG",
+        "StepID": 4,
+        "StepName": "Bước 1",
+        "MoTa": "Cân và chuẩn bị gia vị",
+        "GioBatDau": "2021-06-15T00:08:10",
+        "GioKetThuc": "2021-06-15T00:08:10",
+        "Status": 0,
+        "TgPauseSec": 0,
+        "TgSecChuan": 300,
+        "TgSecBest": 60,
+        "PauseTimeLogs": "[]",
+        "CVBPosID": 0
+      },
+      "type": "object",
+      "properties": {
+        "AutoID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "LichLamViecBepID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "UserID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "HoTen": {
+          "type": "string"
+        },
+        "UpdateUserID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "UpdateHoTen": {
+          "type": "string"
+        },
+        "StepID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "StepName": {
+          "type": "string"
+        },
+        "MoTa": {
+          "type": "string"
+        },
+        "GioBatDau": {
+          "type": "string"
+        },
+        "GioKetThuc": {
+          "type": "string"
+        },
+        "Status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "TgPauseSec": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "TgSecChuan": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "TgSecBest": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "PauseTimeLogs": {
+          "type": "string"
+        },
+        "CVBPosID": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "required": [
+        "AutoID",
+        "LichLamViecBepID",
+        "UserID",
+        "HoTen",
+        "UpdateUserID",
+        "UpdateHoTen",
+        "StepID",
+        "StepName",
+        "MoTa",
+        "GioBatDau",
+        "GioKetThuc",
+        "Status",
+        "TgPauseSec",
+        "TgSecChuan",
+        "TgSecBest",
+        "PauseTimeLogs",
+        "CVBPosID"
+      ]
+    },
+    "http://localhost:300/api/zalo/hookvegalrequest": {
+      "title": "http://localhost:300/api/zalo/hookvegalrequest",
+      "example": {
+        "data": "data"
+      },
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "data"
+      ]
+    },
+    "https://paymenthookvbm.herokuapp.com/api/zalo/hookvegalrequest": {
+      "title": "https://paymenthookvbm.herokuapp.com/api/zalo/hookvegalrequest",
+      "example": {
+        "data": "hello"
+      },
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "data"
+      ]
+    },
+    "https://test-payment.momo.vn/-request": {
+      "title": "https://test-payment.momo.vn/-request",
+      "example": {
+        "partnerCode": "MOMOIGTV20191105",
+        "partnerName": "CÔNG TY CỔ PHẦN VUA BÁNH MÌ",
+        "storeId": "vuabanhmivegaltest",
+        "redirectUrl": "http://192.168.0.104:3000",
+        "ipnUrl": "https://paymenthookvbm.herokuapp.com/api/momo/callbackvegal",
+        "requestType": "captureWallet",
+        "extraData": "",
+        "lang": "vi",
+        "amount": 20000,
+        "orderId": "1711",
+        "orderInfo": "Thanh toan Vegal",
+        "requestId": "MM1711",
+        "signature": "0822e09aea270d15659a5fc1f138b5bc182c572ea51c3253fbc4ca2f935120dd"
+      },
+      "type": "object",
+      "properties": {
+        "partnerCode": {
+          "type": "string"
+        },
+        "partnerName": {
+          "type": "string"
+        },
+        "storeId": {
+          "type": "string"
+        },
+        "redirectUrl": {
+          "type": "string"
+        },
+        "ipnUrl": {
+          "type": "string"
+        },
+        "requestType": {
+          "type": "string"
+        },
+        "extraData": {
+          "type": "string"
+        },
+        "lang": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "orderId": {
+          "type": "string"
+        },
+        "orderInfo": {
+          "type": "string"
+        },
+        "requestId": {
+          "type": "string"
+        },
+        "signature": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "partnerCode",
+        "partnerName",
+        "storeId",
+        "redirectUrl",
+        "ipnUrl",
+        "requestType",
+        "extraData",
+        "lang",
+        "amount",
+        "orderId",
+        "orderInfo",
+        "requestId",
+        "signature"
+      ]
+    },
+    "https://paymenthookvbm.herokuapp.com/api/momo/callbackvegalrequest": {
+      "title": "https://paymenthookvbm.herokuapp.com/api/momo/callbackvegalrequest",
+      "example": {
+        "data": "momo"
+      },
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "data"
+      ]
+    },
+    "https://paymenthookvbm.herokuapp.com/api/momo/callbackvegalrequest1": {
+      "title": "https://paymenthookvbm.herokuapp.com/api/momo/callbackvegalrequest1",
+      "example": {
+        "vbm": {
+          "ShopID": 6,
+          "BillDate": "2021-07-22T14:04:15.836Z",
+          "TgTien": 78000,
+          "MaGiamGia": "",
+          "ThanhTien": 126000,
+          "BillType": 2,
+          "TableNotes": "",
+          "UserID": 141402,
+          "Lat": 10.8418166,
+          "Lng": 106.6782511,
+          "deliverAddress": "22 Đường Số 27, phường 6, Gò Vấp, Ho Chi Minh City, Vietnam",
+          "giamGia": 0,
+          "henGioLayFrom": "2021-07-22T14:04:11.658Z",
+          "henGioLayTo": "2021-07-22T14:34:11.658Z",
+          "MaBill": "",
+          "SubMaBill": "LE",
+          "PosID": 2,
+          "IsPaid": 0,
+          "ShippingFee": 24000,
+          "ExtraShipFee": 24000,
+          "IsPaidShipping": 0,
+          "orderedUserID": 141402,
+          "UniqueID": "CMWTKDUBNE1626937455836",
+          "ListBillVRDetails": [
+            {
+              "SpID": 1167,
+              "SpName": "Nấm Thập Cẩm",
+              "DonGia": 39000,
+              "SoLg": 2,
+              "Discount": 0,
+              "Notes": "",
+              "NguyenGia": 39000,
+              "IsExtra": 0
+            }
+          ],
+          "IsXuatHoaDon": 0,
+          "IsZeroContact": 0,
+          "XuatHoaDon": {},
+          "Token": "",
+          "DistanceM": 0
+        },
+        "momo": {
+          "partnerCode": "MOMOIGTV20191105",
+          "partnerName": "CÔNG TY CỔ PHẦN VUA BÁNH MÌ",
+          "storeId": "vuabanhmivegaltest",
+          "redirectUrl": "http://localhost:3000",
+          "ipnUrl": "https://test.vuabanhmi.com:443/api/momo/callbackvegalbeta",
+          "requestType": "captureWallet",
+          "extraData": "",
+          "lang": "vi",
+          "amount": 126000,
+          "orderId": "CMWTKDUBNE1626937455836",
+          "orderInfo": "Thanh toán Vegal",
+          "requestId": "MMCMWTKDUBNE1626937455836",
+          "signature": "230fe868e67d708aa79e55d38d5df6c449a8ed4b087fe7c347688c945316792b"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "vbm": {
+          "$ref": "#/definitions/Vbm"
+        },
+        "momo": {
+          "$ref": "#/definitions/Momo"
+        }
+      },
+      "required": [
+        "vbm",
+        "momo"
+      ]
+    },
+    "Vbm": {
+      "title": "Vbm",
+      "example": {
+        "ShopID": 6,
+        "BillDate": "2021-07-22T14:04:15.836Z",
+        "TgTien": 78000,
+        "MaGiamGia": "",
+        "ThanhTien": 126000,
+        "BillType": 2,
+        "TableNotes": "",
+        "UserID": 141402,
+        "Lat": 10.8418166,
+        "Lng": 106.6782511,
+        "deliverAddress": "22 Đường Số 27, phường 6, Gò Vấp, Ho Chi Minh City, Vietnam",
+        "giamGia": 0,
+        "henGioLayFrom": "2021-07-22T14:04:11.658Z",
+        "henGioLayTo": "2021-07-22T14:34:11.658Z",
+        "MaBill": "",
+        "SubMaBill": "LE",
+        "PosID": 2,
+        "IsPaid": 0,
+        "ShippingFee": 24000,
+        "ExtraShipFee": 24000,
+        "IsPaidShipping": 0,
+        "orderedUserID": 141402,
+        "UniqueID": "CMWTKDUBNE1626937455836",
+        "ListBillVRDetails": [
+          {
+            "SpID": 1167,
+            "SpName": "Nấm Thập Cẩm",
+            "DonGia": 39000,
+            "SoLg": 2,
+            "Discount": 0,
+            "Notes": "",
+            "NguyenGia": 39000,
+            "IsExtra": 0
+          }
+        ],
+        "IsXuatHoaDon": 0,
+        "IsZeroContact": 0,
+        "XuatHoaDon": {},
+        "Token": "",
+        "DistanceM": 0
+      },
+      "type": "object",
+      "properties": {
+        "ShopID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "BillDate": {
+          "type": "string"
+        },
+        "TgTien": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "MaGiamGia": {
+          "type": "string"
+        },
+        "ThanhTien": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "BillType": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "TableNotes": {
+          "type": "string"
+        },
+        "UserID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Lat": {
+          "type": "number",
+          "format": "double"
+        },
+        "Lng": {
+          "type": "number",
+          "format": "double"
+        },
+        "deliverAddress": {
+          "type": "string"
+        },
+        "giamGia": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "henGioLayFrom": {
+          "type": "string"
+        },
+        "henGioLayTo": {
+          "type": "string"
+        },
+        "MaBill": {
+          "type": "string"
+        },
+        "SubMaBill": {
+          "type": "string"
+        },
+        "PosID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "IsPaid": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ShippingFee": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ExtraShipFee": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "IsPaidShipping": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "orderedUserID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "UniqueID": {
+          "type": "string"
+        },
+        "ListBillVRDetails": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ListBillVRDetail"
+          }
+        },
+        "IsXuatHoaDon": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "IsZeroContact": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "XuatHoaDon": {
+          "type": "object"
+        },
+        "Token": {
+          "type": "string"
+        },
+        "DistanceM": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "required": [
+        "ShopID",
+        "BillDate",
+        "TgTien",
+        "MaGiamGia",
+        "ThanhTien",
+        "BillType",
+        "TableNotes",
+        "UserID",
+        "Lat",
+        "Lng",
+        "deliverAddress",
+        "giamGia",
+        "henGioLayFrom",
+        "henGioLayTo",
+        "MaBill",
+        "SubMaBill",
+        "PosID",
+        "IsPaid",
+        "ShippingFee",
+        "ExtraShipFee",
+        "IsPaidShipping",
+        "orderedUserID",
+        "UniqueID",
+        "ListBillVRDetails",
+        "IsXuatHoaDon",
+        "IsZeroContact",
+        "XuatHoaDon",
+        "Token",
+        "DistanceM"
+      ]
+    },
+    "ListBillVRDetail": {
+      "title": "ListBillVRDetail",
+      "example": {
+        "SpID": 1167,
+        "SpName": "Nấm Thập Cẩm",
+        "DonGia": 39000,
+        "SoLg": 2,
+        "Discount": 0,
+        "Notes": "",
+        "NguyenGia": 39000,
+        "IsExtra": 0
+      },
+      "type": "object",
+      "properties": {
+        "SpID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "SpName": {
+          "type": "string"
+        },
+        "DonGia": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "SoLg": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Discount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Notes": {
+          "type": "string"
+        },
+        "NguyenGia": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "IsExtra": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "required": [
+        "SpID",
+        "SpName",
+        "DonGia",
+        "SoLg",
+        "Discount",
+        "Notes",
+        "NguyenGia",
+        "IsExtra"
+      ]
+    },
+    "Momo": {
+      "title": "Momo",
+      "example": {
+        "partnerCode": "MOMOIGTV20191105",
+        "partnerName": "CÔNG TY CỔ PHẦN VUA BÁNH MÌ",
+        "storeId": "vuabanhmivegaltest",
+        "redirectUrl": "http://localhost:3000",
+        "ipnUrl": "https://test.vuabanhmi.com:443/api/momo/callbackvegalbeta",
+        "requestType": "captureWallet",
+        "extraData": "",
+        "lang": "vi",
+        "amount": 126000,
+        "orderId": "CMWTKDUBNE1626937455836",
+        "orderInfo": "Thanh toán Vegal",
+        "requestId": "MMCMWTKDUBNE1626937455836",
+        "signature": "230fe868e67d708aa79e55d38d5df6c449a8ed4b087fe7c347688c945316792b"
+      },
+      "type": "object",
+      "properties": {
+        "partnerCode": {
+          "type": "string"
+        },
+        "partnerName": {
+          "type": "string"
+        },
+        "storeId": {
+          "type": "string"
+        },
+        "redirectUrl": {
+          "type": "string"
+        },
+        "ipnUrl": {
+          "type": "string"
+        },
+        "requestType": {
+          "type": "string"
+        },
+        "extraData": {
+          "type": "string"
+        },
+        "lang": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "orderId": {
+          "type": "string"
+        },
+        "orderInfo": {
+          "type": "string"
+        },
+        "requestId": {
+          "type": "string"
+        },
+        "signature": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "partnerCode",
+        "partnerName",
+        "storeId",
+        "redirectUrl",
+        "ipnUrl",
+        "requestType",
+        "extraData",
+        "lang",
+        "amount",
+        "orderId",
+        "orderInfo",
+        "requestId",
+        "signature"
+      ]
+    },
+    "http://localhost:3000/api/zalo/createpaymentrequest": {
+      "title": "http://localhost:3000/api/zalo/createpaymentrequest",
+      "example": {
+        "app_time": 1625662217513,
+        "order_type": "FOOD",
+        "callback_url": "https://paymenthookvbm.herokuapp.com/api/zalo/hookvegal",
+        "bank_code": "zalopayapp",
+        "app_id": 2554,
+        "app_user": "baroned",
+        "amount": 30000,
+        "title": "test zalopay",
+        "description": "test zalopay",
+        "device_info": "",
+        "item": "[{\"itemid\":\"knb\",\"itemname\":\"kim nguyen bao\",\"itemquantity\":10,\"itemprice\":50000}]",
+        "embed_data": "{}",
+        "currency": "VND",
+        "phone": "0385994415",
+        "email": "nguyenduykhuongtqtpy@gmail.com",
+        "address": "22/27 P6 Go Vap TPHCM",
+        "app_trans_id": "2007071724",
+        "mac": "ce17e496c70eaa6c3486a3d7c71dc30fb393cc46de926a30cad7c63b84d2b7ed"
+      },
+      "type": "object",
+      "properties": {
+        "app_time": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "order_type": {
+          "type": "string"
+        },
+        "callback_url": {
+          "type": "string"
+        },
+        "bank_code": {
+          "type": "string"
+        },
+        "app_id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "app_user": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "device_info": {
+          "type": "string"
+        },
+        "item": {
+          "type": "string"
+        },
+        "embed_data": {
+          "type": "string"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "app_trans_id": {
+          "type": "string"
+        },
+        "mac": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "app_time",
+        "order_type",
+        "callback_url",
+        "bank_code",
+        "app_id",
+        "app_user",
+        "amount",
+        "title",
+        "description",
+        "device_info",
+        "item",
+        "embed_data",
+        "currency",
+        "phone",
+        "email",
+        "address",
+        "app_trans_id",
+        "mac"
+      ]
+    },
+    "http://vuabanhmi.com:6519/api/BillVR/CreateUserAppRequest": {
+      "title": "http://vuabanhmi.com:6519/api/BillVR/CreateUserAppRequest",
+      "example": {
+        "Username": "0375994415",
+        "Pwd": "4297f44b13955235245b2497399d7a93",
+        "Email": "",
+        "PhoneNo": "123",
+        "FBID": "",
+        "IsNV": 0
+      },
+      "type": "object",
+      "properties": {
+        "Username": {
+          "type": "string"
+        },
+        "Pwd": {
+          "type": "string"
+        },
+        "Email": {
+          "type": "string"
+        },
+        "PhoneNo": {
+          "type": "string"
+        },
+        "FBID": {
+          "type": "string"
+        },
+        "IsNV": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "required": [
+        "Username",
+        "Pwd",
+        "Email",
+        "PhoneNo",
+        "FBID",
+        "IsNV"
+      ]
+    },
+    "http://vuabanhmi.com:6519/api/BillVR/AddNewVRRequest": {
+      "title": "http://vuabanhmi.com:6519/api/BillVR/AddNewVRRequest",
+      "example": {
+        "ShopID": 6,
+        "BillDate": "2021-07-21T17:36:16.738Z",
+        "TgTien": 156000,
+        "MaGiamGia": "",
+        "ThanhTien": 192000,
+        "BillType": 2,
+        "TableNotes": "",
+        "UserID": 141402,
+        "Lat": 10.8418166,
+        "Lng": 106.6782511,
+        "deliverAddress": "22 Đường Số 27, phường 6, Gò Vấp, Ho Chi Minh City, Vietnam",
+        "giamGia": 0,
+        "henGioLayFrom": "2021-07-21T17:36:08.000Z",
+        "henGioLayTo": "2021-07-21T19:06:08.000Z",
+        "MaBill": "",
+        "SubMaBill": "LE",
+        "PosID": 2,
+        "IsPaid": -1,
+        "ShippingFee": 24000,
+        "ExtraShipFee": 12000,
+        "IsPaidShipping": -1,
+        "orderedUserID": 141402,
+        "UniqueID": "XSOGWPLVDF1626863776738",
+        "ListBillVRDetails": [
+          {
+            "SpID": 1167,
+            "SpName": "Nấm Thập Cẩm",
+            "DonGia": 39000,
+            "SoLg": 2,
+            "Discount": 0,
+            "Notes": "",
+            "NguyenGia": 39000,
+            "IsExtra": 0
+          },
+          {
+            "SpID": 1168,
+            "SpName": "Nấm Nướng Ngũ Vị",
+            "DonGia": 39000,
+            "SoLg": 2,
+            "Discount": 0,
+            "Notes": "",
+            "NguyenGia": 39000,
+            "IsExtra": 0
+          }
+        ],
+        "IsXuatHoaDon": 0,
+        "IsZeroContact": 0,
+        "XuatHoaDon": {},
+        "Token": "",
+        "DistanceM": 0
+      },
+      "type": "object",
+      "properties": {
+        "ShopID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "BillDate": {
+          "type": "string"
+        },
+        "TgTien": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "MaGiamGia": {
+          "type": "string"
+        },
+        "ThanhTien": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "BillType": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "TableNotes": {
+          "type": "string"
+        },
+        "UserID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Lat": {
+          "type": "number",
+          "format": "double"
+        },
+        "Lng": {
+          "type": "number",
+          "format": "double"
+        },
+        "deliverAddress": {
+          "type": "string"
+        },
+        "giamGia": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "henGioLayFrom": {
+          "type": "string"
+        },
+        "henGioLayTo": {
+          "type": "string"
+        },
+        "MaBill": {
+          "type": "string"
+        },
+        "SubMaBill": {
+          "type": "string"
+        },
+        "PosID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "IsPaid": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ShippingFee": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ExtraShipFee": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "IsPaidShipping": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "orderedUserID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "UniqueID": {
+          "type": "string"
+        },
+        "ListBillVRDetails": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ListBillVRDetail"
+          }
+        },
+        "IsXuatHoaDon": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "IsZeroContact": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "XuatHoaDon": {
+          "type": "object"
+        },
+        "Token": {
+          "type": "string"
+        },
+        "DistanceM": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "required": [
+        "ShopID",
+        "BillDate",
+        "TgTien",
+        "MaGiamGia",
+        "ThanhTien",
+        "BillType",
+        "TableNotes",
+        "UserID",
+        "Lat",
+        "Lng",
+        "deliverAddress",
+        "giamGia",
+        "henGioLayFrom",
+        "henGioLayTo",
+        "MaBill",
+        "SubMaBill",
+        "PosID",
+        "IsPaid",
+        "ShippingFee",
+        "ExtraShipFee",
+        "IsPaidShipping",
+        "orderedUserID",
+        "UniqueID",
+        "ListBillVRDetails",
+        "IsXuatHoaDon",
+        "IsZeroContact",
+        "XuatHoaDon",
+        "Token",
+        "DistanceM"
+      ]
+    },
+    "https://localhost:443/api/shopeepay/createpaymenttestrequest": {
+      "title": "https://localhost:443/api/shopeepay/createpaymenttestrequest",
+      "example": {
+        "vbm": {},
+        "shopeepay": {
+          "request_id": "requestjumpapp041",
+          "store_ext_id": "2030792_1",
+          "merchant_ext_id": "2030792",
+          "amount": 100,
+          "return_url": "http://localhost:3000",
+          "platform_type": "mweb",
+          "currency": "VND",
+          "expiry_time": 1625847884,
+          "payment_reference_id": "Test042",
+          "additional_info": ""
+        }
+      },
+      "type": "object",
+      "properties": {
+        "vbm": {
+          "type": "object"
+        },
+        "shopeepay": {
+          "$ref": "#/definitions/Shopeepay"
+        }
+      },
+      "required": [
+        "vbm",
+        "shopeepay"
+      ]
+    },
+    "Shopeepay": {
+      "title": "Shopeepay",
+      "example": {
+        "request_id": "requestjumpapp041",
+        "store_ext_id": "2030792_1",
+        "merchant_ext_id": "2030792",
+        "amount": 100,
+        "return_url": "http://localhost:3000",
+        "platform_type": "mweb",
+        "currency": "VND",
+        "expiry_time": 1625847884,
+        "payment_reference_id": "Test042",
+        "additional_info": ""
+      },
+      "type": "object",
+      "properties": {
+        "request_id": {
+          "type": "string"
+        },
+        "store_ext_id": {
+          "type": "string"
+        },
+        "merchant_ext_id": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "return_url": {
+          "type": "string"
+        },
+        "platform_type": {
+          "type": "string"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "expiry_time": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "payment_reference_id": {
+          "type": "string"
+        },
+        "additional_info": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "request_id",
+        "store_ext_id",
+        "merchant_ext_id",
+        "amount",
+        "return_url",
+        "platform_type",
+        "currency",
+        "expiry_time",
+        "payment_reference_id",
+        "additional_info"
+      ]
+    },
+    "https://localhost:3100/api/shopeepay/createpaymentrequest": {
+      "title": "https://localhost:3100/api/shopeepay/createpaymentrequest",
+      "example": {
+        "vbm": {
+          "ShopID": 2,
+          "BillDate": "2021-08-21T11:07:41.425012+07:00",
+          "time_payment": "0001-01-01T00:00:00",
+          "TgTien": 29000.0,
+          "DiscountJSON": "",
+          "ThanhTien": 29000.0,
+          "BillType": 1,
+          "TableNotes": "",
+          "UserID": 20996,
+          "Datitude": "",
+          "Dlongtitude": "",
+          "deliverAddress": "",
+          "giamGia": 0.0,
+          "henGioLay": "2021-08-21T11:07:41.42486+07:00",
+          "isHenGioLay": 0,
+          "MaBill": "",
+          "PosID": 0,
+          "IsPaid": 0,
+          "orderedUserID": 20996,
+          "IsZeroContact": 0,
+          "UniqueID": "c4bfbb6b-2ed9-4740-a2de-2ff027cc2510",
+          "Token": "UytJZE9tYTRvWUpXbmJEKzZiS1Ftc1FCR25MYy84UmlYN2IyM1hscDBsS3Z1ak5IRGpQZDB6MDgrQ3R3NnFibg==",
+          "ListBillDetails": [
+            {
+              "SpID": 959,
+              "SpName": "Burger Xíu Mại Đậu",
+              "DonGia": 29000.0,
+              "SoLg": 1,
+              "Discount": "",
+              "Notes": "",
+              "NguyenGia": 29000.0,
+              "IsExtra": 0,
+              "AliasTenSP": "BG Xiu Mai Dau"
+            }
+          ],
+          "lstAddData": []
+        },
+        "shopeepay": {
+          "request_id": "c4bfbb6b-2ed9-4740-a2de-2ff027cc2510",
+          "payment_reference_id": "c4bfbb6b-2ed9-4740-a2de-2ff027cc2510",
+          "merchant_ext_id": "vmb_012345",
+          "store_ext_id": "VBM_01",
+          "amount": 100000,
+          "currency": "VND",
+          "return_url": "vbm://shopee.com/?type=shopee&amount=100000&merchant_ext_id=vmb_012345&reference_id=c4bfbb6b-2ed9-4740-a2de-2ff027cc2510&request_id=c4bfbb6b-2ed9-4740-a2de-2ff027cc2510&store_ext_id=VBM_01&transaction_type=13",
+          "platform_type": "app",
+          "additional_info": "{}"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "vbm": {
+          "$ref": "#/definitions/Vbm1"
+        },
+        "shopeepay": {
+          "$ref": "#/definitions/Shopeepay1"
+        }
+      },
+      "required": [
+        "vbm",
+        "shopeepay"
+      ]
+    },
+    "Vbm1": {
+      "title": "Vbm1",
+      "example": {
+        "ShopID": 2,
+        "BillDate": "2021-08-21T11:07:41.425012+07:00",
+        "time_payment": "0001-01-01T00:00:00",
+        "TgTien": 29000.0,
+        "DiscountJSON": "",
+        "ThanhTien": 29000.0,
+        "BillType": 1,
+        "TableNotes": "",
+        "UserID": 20996,
+        "Datitude": "",
+        "Dlongtitude": "",
+        "deliverAddress": "",
+        "giamGia": 0.0,
+        "henGioLay": "2021-08-21T11:07:41.42486+07:00",
+        "isHenGioLay": 0,
+        "MaBill": "",
+        "PosID": 0,
+        "IsPaid": 0,
+        "orderedUserID": 20996,
+        "IsZeroContact": 0,
+        "UniqueID": "c4bfbb6b-2ed9-4740-a2de-2ff027cc2510",
+        "Token": "UytJZE9tYTRvWUpXbmJEKzZiS1Ftc1FCR25MYy84UmlYN2IyM1hscDBsS3Z1ak5IRGpQZDB6MDgrQ3R3NnFibg==",
+        "ListBillDetails": [
+          {
+            "SpID": 959,
+            "SpName": "Burger Xíu Mại Đậu",
+            "DonGia": 29000.0,
+            "SoLg": 1,
+            "Discount": "",
+            "Notes": "",
+            "NguyenGia": 29000.0,
+            "IsExtra": 0,
+            "AliasTenSP": "BG Xiu Mai Dau"
+          }
+        ],
+        "lstAddData": []
+      },
+      "type": "object",
+      "properties": {
+        "ShopID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "BillDate": {
+          "type": "string"
+        },
+        "time_payment": {
+          "type": "string"
+        },
+        "TgTien": {
+          "type": "number",
+          "format": "double"
+        },
+        "DiscountJSON": {
+          "type": "string"
+        },
+        "ThanhTien": {
+          "type": "number",
+          "format": "double"
+        },
+        "BillType": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "TableNotes": {
+          "type": "string"
+        },
+        "UserID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Datitude": {
+          "type": "string"
+        },
+        "Dlongtitude": {
+          "type": "string"
+        },
+        "deliverAddress": {
+          "type": "string"
+        },
+        "giamGia": {
+          "type": "number",
+          "format": "double"
+        },
+        "henGioLay": {
+          "type": "string"
+        },
+        "isHenGioLay": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "MaBill": {
+          "type": "string"
+        },
+        "PosID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "IsPaid": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "orderedUserID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "IsZeroContact": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "UniqueID": {
+          "type": "string"
+        },
+        "Token": {
+          "type": "string"
+        },
+        "ListBillDetails": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ListBillDetail"
+          }
+        },
+        "lstAddData": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "ShopID",
+        "BillDate",
+        "time_payment",
+        "TgTien",
+        "DiscountJSON",
+        "ThanhTien",
+        "BillType",
+        "TableNotes",
+        "UserID",
+        "Datitude",
+        "Dlongtitude",
+        "deliverAddress",
+        "giamGia",
+        "henGioLay",
+        "isHenGioLay",
+        "MaBill",
+        "PosID",
+        "IsPaid",
+        "orderedUserID",
+        "IsZeroContact",
+        "UniqueID",
+        "Token",
+        "ListBillDetails",
+        "lstAddData"
+      ]
+    },
+    "ListBillDetail": {
+      "title": "ListBillDetail",
+      "example": {
+        "SpID": 959,
+        "SpName": "Burger Xíu Mại Đậu",
+        "DonGia": 29000.0,
+        "SoLg": 1,
+        "Discount": "",
+        "Notes": "",
+        "NguyenGia": 29000.0,
+        "IsExtra": 0,
+        "AliasTenSP": "BG Xiu Mai Dau"
+      },
+      "type": "object",
+      "properties": {
+        "SpID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "SpName": {
+          "type": "string"
+        },
+        "DonGia": {
+          "type": "number",
+          "format": "double"
+        },
+        "SoLg": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Discount": {
+          "type": "string"
+        },
+        "Notes": {
+          "type": "string"
+        },
+        "NguyenGia": {
+          "type": "number",
+          "format": "double"
+        },
+        "IsExtra": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "AliasTenSP": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "SpID",
+        "SpName",
+        "DonGia",
+        "SoLg",
+        "Discount",
+        "Notes",
+        "NguyenGia",
+        "IsExtra",
+        "AliasTenSP"
+      ]
+    },
+    "Shopeepay1": {
+      "title": "Shopeepay1",
+      "example": {
+        "request_id": "c4bfbb6b-2ed9-4740-a2de-2ff027cc2510",
+        "payment_reference_id": "c4bfbb6b-2ed9-4740-a2de-2ff027cc2510",
+        "merchant_ext_id": "vmb_012345",
+        "store_ext_id": "VBM_01",
+        "amount": 100000,
+        "currency": "VND",
+        "return_url": "vbm://shopee.com/?type=shopee&amount=100000&merchant_ext_id=vmb_012345&reference_id=c4bfbb6b-2ed9-4740-a2de-2ff027cc2510&request_id=c4bfbb6b-2ed9-4740-a2de-2ff027cc2510&store_ext_id=VBM_01&transaction_type=13",
+        "platform_type": "app",
+        "additional_info": "{}"
+      },
+      "type": "object",
+      "properties": {
+        "request_id": {
+          "type": "string"
+        },
+        "payment_reference_id": {
+          "type": "string"
+        },
+        "merchant_ext_id": {
+          "type": "string"
+        },
+        "store_ext_id": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "return_url": {
+          "type": "string"
+        },
+        "platform_type": {
+          "type": "string"
+        },
+        "additional_info": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "request_id",
+        "payment_reference_id",
+        "merchant_ext_id",
+        "store_ext_id",
+        "amount",
+        "currency",
+        "return_url",
+        "platform_type",
+        "additional_info"
+      ]
+    },
+    "http://vuabanhmi.com:1986/api/Bill/AddNew4Request": {
+      "title": "http://vuabanhmi.com:1986/api/Bill/AddNew4Request",
+      "example": {
+        "ShopID": 2,
+        "BillDate": "2022-02-15T09:30:17.407724+07:00",
+        "time_payment": "0001-01-01T00:00:00",
+        "TgTien": 40000,
+        "DiscountJSON": "ctvv ",
+        "ThanhTien": 28000,
+        "BillType": 2,
+        "TableNotes": "",
+        "UserID": 141402,
+        "Datitude": "10,79226688",
+        "Dlongtitude": "106,6935516",
+        "deliverAddress": "117 Đường Trần quang khải, Phường tân định , Quận 1 , Hồ Chí Minh, Việt Nam (Trần quang khải )",
+        "giamGia": 12000,
+        "henGioLay": "0001-01-01T00:00:00",
+        "isHenGioLay": 0,
+        "MaBill": "",
+        "PosID": 0,
+        "IsPaid": 0,
+        "orderedUserID": 141402,
+        "IsZeroContact": 0,
+        "UniqueID": "test",
+        "Token": "Qnlxb0hJQjlHNHBOalEzWmtObk5XOFd0ZWYzeWVKUVdxTkZUOTBSMlc5bDdjTk1VYWRDUmVrY3dmalFINHFFUA==",
+        "thanhtoantype": 0,
+        "ListBillDetails": [
+          {
+            "SpID": 791,
+            "SpName": "Cà Phê",
+            "DonGia": 0,
+            "SoLg": 1,
+            "Discount": "",
+            "Notes": "",
+            "NguyenGia": 0,
+            "IsExtra": 0,
+            "AliasTenSP": ""
+          }
+        ],
+        "lstAddData": [],
+        "ThanhToanType": 1
+      },
+      "type": "object",
+      "properties": {
+        "ShopID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "BillDate": {
+          "type": "string"
+        },
+        "time_payment": {
+          "type": "string"
+        },
+        "TgTien": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "DiscountJSON": {
+          "type": "string"
+        },
+        "ThanhTien": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "BillType": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "TableNotes": {
+          "type": "string"
+        },
+        "UserID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Datitude": {
+          "type": "string"
+        },
+        "Dlongtitude": {
+          "type": "string"
+        },
+        "deliverAddress": {
+          "type": "string"
+        },
+        "giamGia": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "henGioLay": {
+          "type": "string"
+        },
+        "isHenGioLay": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "MaBill": {
+          "type": "string"
+        },
+        "PosID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "IsPaid": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "orderedUserID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "IsZeroContact": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "UniqueID": {
+          "type": "string"
+        },
+        "Token": {
+          "type": "string"
+        },
+        "thanhtoantype": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ListBillDetails": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ListBillDetail1"
+          }
+        },
+        "lstAddData": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "ShopID",
+        "BillDate",
+        "time_payment",
+        "TgTien",
+        "DiscountJSON",
+        "ThanhTien",
+        "BillType",
+        "TableNotes",
+        "UserID",
+        "Datitude",
+        "Dlongtitude",
+        "deliverAddress",
+        "giamGia",
+        "henGioLay",
+        "isHenGioLay",
+        "MaBill",
+        "PosID",
+        "IsPaid",
+        "orderedUserID",
+        "IsZeroContact",
+        "UniqueID",
+        "Token",
+        "thanhtoantype",
+        "ListBillDetails",
+        "lstAddData"
+      ]
+    },
+    "ListBillDetail1": {
+      "title": "ListBillDetail1",
+      "example": {
+        "SpID": 791,
+        "SpName": "Cà Phê",
+        "DonGia": 0,
+        "SoLg": 1,
+        "Discount": "",
+        "Notes": "",
+        "NguyenGia": 0,
+        "IsExtra": 0,
+        "AliasTenSP": ""
+      },
+      "type": "object",
+      "properties": {
+        "SpID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "SpName": {
+          "type": "string"
+        },
+        "DonGia": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "SoLg": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Discount": {
+          "type": "string"
+        },
+        "Notes": {
+          "type": "string"
+        },
+        "NguyenGia": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "IsExtra": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "AliasTenSP": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "SpID",
+        "SpName",
+        "DonGia",
+        "SoLg",
+        "Discount",
+        "Notes",
+        "NguyenGia",
+        "IsExtra",
+        "AliasTenSP"
+      ]
+    },
+    "http://localhost:3100/api/momo/createpaymentrequest": {
+      "title": "http://localhost:3100/api/momo/createpaymentrequest",
+      "example": {
+        "momo": {
+          "partnerCode": "MOMOIGTV20191105",
+          "partnerName": "CÔNG TY CỔ PHẦN VUA BÁNH MÌ",
+          "storeId": "vuabanhmivegaltest",
+          "redirectUrl": "http://192.168.0.104:3000",
+          "ipnUrl": "https://paymenthookvbm.herokuapp.com/api/momo/callbackvegal",
+          "requestType": "captureWallet",
+          "extraData": "",
+          "lang": "vi",
+          "amount": 25000,
+          "orderId": "1711",
+          "orderInfo": "Thanh toan Vegal",
+          "requestId": "MM1711"
+        },
+        "vbm": {
+          "ShopID": 2,
+          "BillDate": "2021-07-10T18:16:03.853623 07:00",
+          "time_payment": "0001-01-01T00:00:00",
+          "TgTien": 25000,
+          "DiscountJSON": "",
+          "ThanhTien": 25000,
+          "BillType": 1,
+          "TableNotes": "",
+          "UserID": 20996,
+          "Datitude": "",
+          "Dlongtitude": "",
+          "deliverAddress": "",
+          "giamGia": 0,
+          "henGioLay": "2021-07-10T18:16:03.83011 07:00",
+          "isHenGioLay": 0,
+          "MaBill": "",
+          "PosID": 0,
+          "IsPaid": -1,
+          "orderedUserID": 20996,
+          "IsZeroContact": 0,
+          "UniqueID": "c57c9971-98bf-4012-83d2-21c050a26980",
+          "Token": "KzF1bDVKM3dkUk03YmhqR1JQay9SZjVRVUZ6K05wMUlDc2cxNXNDaUV0RUN5dklzd0FkS2l3RkR6YmRFekQ4UA==",
+          "ListBillDetails": [
+            {
+              "SpID": 75,
+              "SpName": "Bánh Mì Nấm Chay (vừa)",
+              "DonGia": 25000,
+              "SoLg": 1,
+              "Discount": "",
+              "Notes": "",
+              "NguyenGia": 25000,
+              "IsExtra": 0,
+              "AliasTenSP": "BM Nấm (vừa)"
+            }
+          ],
+          "lstAddData": []
+        }
+      },
+      "type": "object",
+      "properties": {
+        "momo": {
+          "$ref": "#/definitions/Momo1"
+        },
+        "vbm": {
+          "$ref": "#/definitions/Vbm2"
+        }
+      },
+      "required": [
+        "momo",
+        "vbm"
+      ]
+    },
+    "Momo1": {
+      "title": "Momo1",
+      "example": {
+        "partnerCode": "MOMOIGTV20191105",
+        "partnerName": "CÔNG TY CỔ PHẦN VUA BÁNH MÌ",
+        "storeId": "vuabanhmivegaltest",
+        "redirectUrl": "http://192.168.0.104:3000",
+        "ipnUrl": "https://paymenthookvbm.herokuapp.com/api/momo/callbackvegal",
+        "requestType": "captureWallet",
+        "extraData": "",
+        "lang": "vi",
+        "amount": 25000,
+        "orderId": "1711",
+        "orderInfo": "Thanh toan Vegal",
+        "requestId": "MM1711"
+      },
+      "type": "object",
+      "properties": {
+        "partnerCode": {
+          "type": "string"
+        },
+        "partnerName": {
+          "type": "string"
+        },
+        "storeId": {
+          "type": "string"
+        },
+        "redirectUrl": {
+          "type": "string"
+        },
+        "ipnUrl": {
+          "type": "string"
+        },
+        "requestType": {
+          "type": "string"
+        },
+        "extraData": {
+          "type": "string"
+        },
+        "lang": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "orderId": {
+          "type": "string"
+        },
+        "orderInfo": {
+          "type": "string"
+        },
+        "requestId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "partnerCode",
+        "partnerName",
+        "storeId",
+        "redirectUrl",
+        "ipnUrl",
+        "requestType",
+        "extraData",
+        "lang",
+        "amount",
+        "orderId",
+        "orderInfo",
+        "requestId"
+      ]
+    },
+    "Vbm2": {
+      "title": "Vbm2",
+      "example": {
+        "ShopID": 2,
+        "BillDate": "2021-07-10T18:16:03.853623 07:00",
+        "time_payment": "0001-01-01T00:00:00",
+        "TgTien": 25000,
+        "DiscountJSON": "",
+        "ThanhTien": 25000,
+        "BillType": 1,
+        "TableNotes": "",
+        "UserID": 20996,
+        "Datitude": "",
+        "Dlongtitude": "",
+        "deliverAddress": "",
+        "giamGia": 0,
+        "henGioLay": "2021-07-10T18:16:03.83011 07:00",
+        "isHenGioLay": 0,
+        "MaBill": "",
+        "PosID": 0,
+        "IsPaid": -1,
+        "orderedUserID": 20996,
+        "IsZeroContact": 0,
+        "UniqueID": "c57c9971-98bf-4012-83d2-21c050a26980",
+        "Token": "KzF1bDVKM3dkUk03YmhqR1JQay9SZjVRVUZ6K05wMUlDc2cxNXNDaUV0RUN5dklzd0FkS2l3RkR6YmRFekQ4UA==",
+        "ListBillDetails": [
+          {
+            "SpID": 75,
+            "SpName": "Bánh Mì Nấm Chay (vừa)",
+            "DonGia": 25000,
+            "SoLg": 1,
+            "Discount": "",
+            "Notes": "",
+            "NguyenGia": 25000,
+            "IsExtra": 0,
+            "AliasTenSP": "BM Nấm (vừa)"
+          }
+        ],
+        "lstAddData": []
+      },
+      "type": "object",
+      "properties": {
+        "ShopID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "BillDate": {
+          "type": "string"
+        },
+        "time_payment": {
+          "type": "string"
+        },
+        "TgTien": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "DiscountJSON": {
+          "type": "string"
+        },
+        "ThanhTien": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "BillType": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "TableNotes": {
+          "type": "string"
+        },
+        "UserID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Datitude": {
+          "type": "string"
+        },
+        "Dlongtitude": {
+          "type": "string"
+        },
+        "deliverAddress": {
+          "type": "string"
+        },
+        "giamGia": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "henGioLay": {
+          "type": "string"
+        },
+        "isHenGioLay": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "MaBill": {
+          "type": "string"
+        },
+        "PosID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "IsPaid": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "orderedUserID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "IsZeroContact": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "UniqueID": {
+          "type": "string"
+        },
+        "Token": {
+          "type": "string"
+        },
+        "ListBillDetails": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ListBillDetail1"
+          }
+        },
+        "lstAddData": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "ShopID",
+        "BillDate",
+        "time_payment",
+        "TgTien",
+        "DiscountJSON",
+        "ThanhTien",
+        "BillType",
+        "TableNotes",
+        "UserID",
+        "Datitude",
+        "Dlongtitude",
+        "deliverAddress",
+        "giamGia",
+        "henGioLay",
+        "isHenGioLay",
+        "MaBill",
+        "PosID",
+        "IsPaid",
+        "orderedUserID",
+        "IsZeroContact",
+        "UniqueID",
+        "Token",
+        "ListBillDetails",
+        "lstAddData"
+      ]
+    }
+  },
+  "tags": [
+    {
+      "name": "Misc",
+      "description": ""
+    }
+  ]
+}
