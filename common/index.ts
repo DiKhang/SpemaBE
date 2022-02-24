@@ -33,18 +33,24 @@ const validate = (data: any, valid: Validator[]) => {
 			if (item.isRequire) {
 				if (!fields.includes(item.name) || typeof data[item.name] != item.type) {
 					return false;
-				} else {
-					if (item.regExp != undefined && typeof data[item.name] == "string") {
-						if (!data[item.name].match(item.regExp)) {
-							return false;
-						}
-					}
+				}
+			}
+			if (item.regExp != undefined && typeof data[item.name] == "string") {
+				if (!data[item.name].match(item.regExp)) {
+					return false;
 				}
 			}
 		}
 
+		for (var i = 0; i < fields.length; i++) {
+			if (!valid.some((item) => item.name == fields[i])) {
+				return false;
+			}
+		}
+
 		return data;
-	} catch (e) {
+	} catch (e: any) {
+		console.log(e.message);
 		return false;
 	}
 };

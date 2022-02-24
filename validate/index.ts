@@ -1,6 +1,5 @@
 /** @format */
 
-import exp from "constants";
 import { Validator } from "../interface";
 import { emailValid, phoneValid } from "../utils/regex";
 
@@ -31,6 +30,11 @@ export const registerValid: Validator[] = [
 		type: "string",
 		isRequire: true,
 		regExp: phoneValid,
+	},
+	{
+		name: "gender",
+		type: "string",
+		isRequire: true,
 	},
 ];
 
@@ -87,5 +91,25 @@ export const forgotPassValid: Validator[] = [
 		name: "code",
 		type: "string",
 		isRequire: true,
+	},
+];
+
+export const updateUserValid: Validator[] = [
+	{
+		name: "name",
+		type: "string",
+	},
+	{
+		name: "birthDay",
+		type: "string",
+	},
+	{
+		name: "phone",
+		type: "string",
+		regExp: phoneValid,
+	},
+	{
+		name: "gender",
+		type: "string",
 	},
 ];

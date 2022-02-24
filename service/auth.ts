@@ -1,11 +1,18 @@
 /** @format */
 import { getISOStringDate } from "../common";
-import { User } from "../interface/auth";
+import { UpdateUser, User } from "../interface/auth";
 import client from "../utils/mongodb";
 
 const findUser = async (username: string) => {
 	const find = await client.collection("User").findOne({
 		username: username,
+	});
+	return find;
+};
+
+const findUserByUserID = async (userID: string) => {
+	const find = await client.collection("User").findOne({
+		userID: userID,
 	});
 	return find;
 };
@@ -83,4 +90,32 @@ const updatePass = async (username: string, password: string) => {
 	}
 };
 
-export { findUser, getAllUser, addUser, activeUser, updateCode, updatePass };
+const updateProfile = async (userID: string, user: UpdateUser) => {
+	try {
+		const update = await client.collection("User").updateOne(
+			{
+				userID: userID,
+			},
+			{
+				$set: {
+					...user,
+				},
+			},
+		);
+		return update.matchedCount;
+	} catch (e: any) {
+		console.log(e.message);
+		return false;
+	}
+};
+
+export {
+	findUser,
+	getAllUser,
+	addUser,
+	activeUser,
+	updateCode,
+	updatePass,
+	findUserByUserID,
+	updateProfile,
+};

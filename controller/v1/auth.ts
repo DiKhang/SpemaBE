@@ -6,9 +6,11 @@ import {
 	activeUser,
 	addUser,
 	findUser,
+	findUserByUserID,
 	getAllUser,
 	updateCode,
 	updatePass,
+	updateProfile,
 } from "../../service/auth";
 import { signToken, verifyToken } from "../../utils/jwt";
 import { sendCode as sendMail } from "../../utils/nodemail";
@@ -18,6 +20,7 @@ import {
 	loginValid,
 	registerValid,
 	resendCodeValid,
+	updateUserValid,
 } from "../../validate";
 
 const register = async (req: Request, res: Response, next: NextFunction) => {
@@ -60,9 +63,11 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
 			name: validBody.name,
 			password: await hashPass(validBody.password),
 			phone: validBody.phone,
+			gender: validBody.gender,
 			rank: "normal",
 			userID: allUser.length + 1,
 			username: validBody.username,
+			role: "user",
 		};
 
 		//insert user
@@ -248,4 +253,37 @@ const forgotPass = async (req: Request, res: Response, next: NextFunction) => {
 	}
 };
 
-export { register, login, active, sendCode, forgotPass };
+const updateUser = async (req: any, res: Response, next: NextFunction) => {
+	try {
+		var body = req.body;
+		var validBody: any = validate(body, updateUserValid);
+		var user = req.user;
+
+		if (!validBody) {
+			return next(new Error(`${500}:${`Validate data fail`}`));
+		}
+
+		const find = await findUserByUserID(user.userID);
+
+		if (!find) {
+			return next(new Error(`${500}:${`Cannot find user`}`));
+		}
+
+		const update = await updateProfile(user.userID, validBody);
+
+		if (!update) {
+			return next(new Error(`${500}:${`Update profile fail cannot update db !`}`));
+		}
+
+		return res.send({
+			status: true,
+			data: {
+				...validBody,
+			},
+		});
+	} catch (e: any) {
+		return next(new Error(`${500}:${e.message}`));
+	}
+};
+
+export { register, login, active, sendCode, forgotPass, updateUser };

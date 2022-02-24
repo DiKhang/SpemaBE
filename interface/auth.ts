@@ -9,9 +9,18 @@ interface User {
 	username: string;
 	active: boolean;
 	password: string;
+	gender: "male" | "female" | "lgbt";
 	code: string;
 	createAt: string;
 	activeAt: string;
+	role: "user" | "admin";
 }
 
-export { User };
+interface UpdateUser {
+	name?: string;
+	birthDay?: string;
+	phone?: number;
+	gender?: "male" | "female" | "lgbt";
+}
+
+export { User, UpdateUser };
