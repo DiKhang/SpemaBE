@@ -25,7 +25,7 @@ const writeLog = (code: any, message: any, req: any) => {
 	});
 };
 
-const validate = (data: any, valid: Validator[], next: any) => {
+const validate = (data: any, valid: Validator[]) => {
 	try {
 		let fields = Object.keys(data);
 		for (var i = 0; i < valid.length; i++) {

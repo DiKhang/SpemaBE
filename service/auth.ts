@@ -1,4 +1,5 @@
 /** @format */
+import { getISOStringDate } from "../common";
 import { User } from "../interface/auth";
 import client from "../utils/mongodb";
 
@@ -16,12 +17,70 @@ const getAllUser = async () => {
 
 const addUser = async (user: User) => {
 	try {
-		const addUser = await client.collection("User").insertOne(user);
-		return addUser.insertedId;
+		const add = await client.collection("User").insertOne(user);
+		return add.insertedId;
 	} catch (e: any) {
 		console.log(e.message);
 		return false;
 	}
 };
 
-export { findUser, getAllUser, addUser };
+const activeUser = async (username: string) => {
+	try {
+		const update = await client.collection("User").updateOne(
+			{
+				username: username,
+			},
+			{
+				$set: {
+					active: true,
+					activeAt: getISOStringDate(new Date()),
+				},
+			},
+		);
+		return update.matchedCount;
+	} catch (e: any) {
+		console.log(e.message);
+		return false;
+	}
+};
+
+const updateCode = async (username: string, code: string) => {
+	try {
+		const update = await client.collection("User").updateOne(
+			{
+				username: username,
+			},
+			{
+				$set: {
+					code: code,
+				},
+			},
+		);
+		return update.matchedCount;
+	} catch (e: any) {
+		console.log(e.message);
+		return false;
+	}
+};
+
+const updatePass = async (username: string, password: string) => {
+	try {
+		const update = await client.collection("User").updateOne(
+			{
+				username: username,
+			},
+			{
+				$set: {
+					password: password,
+				},
+			},
+		);
+		return update.matchedCount;
+	} catch (e: any) {
+		console.log(e.message);
+		return false;
+	}
+};
+
+export { findUser, getAllUser, addUser, activeUser, updateCode, updatePass };

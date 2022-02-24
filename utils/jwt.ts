@@ -4,11 +4,16 @@ import jwt from "jsonwebtoken";
 import fs from "fs";
 import path from "path";
 
-export const signToken = (payLoad: object) => {
+export const signToken = (payLoad: object, refresh?: boolean) => {
 	var keyPath = path.join(process.cwd(), "key", "private.key");
 	var privateKey = fs.readFileSync(keyPath).toString();
 	var token = jwt.sign(
-		{ ...payLoad, exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 }, //token exp 24h
+		{
+			...payLoad,
+			exp: refresh
+				? Math.floor(Date.now() / 1000) + 60 * 60 * 48
+				: Math.floor(Date.now() / 1000) + 60 * 60 * 24,
+		}, //token exp 24h
 		privateKey,
 		{ algorithm: "RS256" },
 	);
