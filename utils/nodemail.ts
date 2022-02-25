@@ -15,7 +15,7 @@ const sendCode = async (to: string, code: string) => {
 	var mailOptions = {
 		from: "nguyenduykhuongtqtpy@gmail.com",
 		to: to,
-		subject: "Verify code to active account MegaTalk !",
+		subject: "Verify code to active account !",
 		text: `Your code : ${code}`,
 	};
 

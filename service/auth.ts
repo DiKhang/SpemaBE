@@ -90,7 +90,7 @@ const updatePass = async (username: string, password: string) => {
 	}
 };
 
-const updateProfile = async (userID: string, user: UpdateUser) => {
+const updateProfile = async (userID: number, user: UpdateUser) => {
 	try {
 		const update = await client.collection("User").updateOne(
 			{
@@ -99,6 +99,44 @@ const updateProfile = async (userID: string, user: UpdateUser) => {
 			{
 				$set: {
 					...user,
+				},
+			},
+		);
+		return update.matchedCount;
+	} catch (e: any) {
+		console.log(e.message);
+		return false;
+	}
+};
+
+const updatePassByUserID = async (userID: number, password: string) => {
+	try {
+		const update = await client.collection("User").updateOne(
+			{
+				userID: userID,
+			},
+			{
+				$set: {
+					password: password,
+				},
+			},
+		);
+		return update.matchedCount;
+	} catch (e: any) {
+		console.log(e.message);
+		return false;
+	}
+};
+
+const updateActiveByUserID = async (userID: number, active: boolean) => {
+	try {
+		const update = await client.collection("User").updateOne(
+			{
+				userID: userID,
+			},
+			{
+				$set: {
+					active: active,
 				},
 			},
 		);
@@ -118,4 +156,6 @@ export {
 	updatePass,
 	findUserByUserID,
 	updateProfile,
+	updatePassByUserID,
+	updateActiveByUserID,
 };

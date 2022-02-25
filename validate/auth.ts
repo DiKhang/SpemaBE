@@ -71,7 +71,7 @@ export const loginValid: Validator[] = [
 		isRequire: true,
 	},
 	{
-		name: "accessToken",
+		name: "refreshToken",
 		type: "string",
 	},
 ];
@@ -111,5 +111,31 @@ export const updateUserValid: Validator[] = [
 	{
 		name: "gender",
 		type: "string",
+	},
+];
+
+export const changePassValid: Validator[] = [
+	{
+		name: "password",
+		type: "string",
+		isRequire: true,
+	},
+	{
+		name: "newPassword",
+		type: "string",
+		isRequire: true,
+	},
+];
+
+export const managerValid: Validator[] = [
+	{
+		name: "active",
+		type: "boolean",
+		isRequire: true,
+	},
+	{
+		name: "userID",
+		type: "number",
+		isRequire: true,
 	},
 ];

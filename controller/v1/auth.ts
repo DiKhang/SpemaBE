@@ -8,20 +8,24 @@ import {
 	findUser,
 	findUserByUserID,
 	getAllUser,
+	updateActiveByUserID,
 	updateCode,
 	updatePass,
+	updatePassByUserID,
 	updateProfile,
 } from "../../service/auth";
 import { signToken, verifyToken } from "../../utils/jwt";
 import { sendCode as sendMail } from "../../utils/nodemail";
 import {
 	activeValid,
+	changePassValid,
 	forgotPassValid,
 	loginValid,
+	managerValid,
 	registerValid,
 	resendCodeValid,
 	updateUserValid,
-} from "../../validate";
+} from "../../validate/auth";
 
 const register = async (req: Request, res: Response, next: NextFunction) => {
 	try {
@@ -103,6 +107,10 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 
 		if (!find) {
 			return next(new Error(`${500}:${`Cannot find user`}`));
+		}
+
+		if (!find.active) {
+			return next(new Error(`${500}:${`Account not active`}`));
 		}
 
 		var accessToken = "";
@@ -286,4 +294,115 @@ const updateUser = async (req: any, res: Response, next: NextFunction) => {
 	}
 };
 
-export { register, login, active, sendCode, forgotPass, updateUser };
+const changePass = async (req: Request | any, res: Response, next: NextFunction) => {
+	try {
+		var body = req.body;
+		var validBody: any = validate(body, changePassValid);
+		var user = req.user;
+
+		if (!validBody) {
+			return next(new Error(`${500}:${`Validate data fail`}`));
+		}
+
+		const find = await findUserByUserID(user.userID);
+
+		if (!find) {
+			return next(new Error(`${500}:${`Cannot find user`}`));
+		}
+
+		const validPass = await verifyPass(validBody.password, find.password);
+
+		if (!validPass) {
+			return next(new Error(`${500}:${`Password wrong`}`));
+		}
+
+		const newPassword = await hashPass(validBody.newPassword);
+
+		const update = await updatePassByUserID(user.userID, newPassword);
+
+		if (!update) {
+			return next(new Error(`${500}:${`Update pass fail cannot update db`}`));
+		}
+
+		return res.send({
+			status: true,
+		});
+	} catch (e: any) {
+		return next(new Error(`${500}:${e.message}`));
+	}
+};
+
+const manager = async (req: Request | any, res: Response, next: NextFunction) => {
+	try {
+		var body = req.body;
+		var validBody: any = validate(body, managerValid);
+		var user = req.user;
+
+		if (!validBody) {
+			return next(new Error(`${500}:${`Validate data fail`}`));
+		}
+
+		const find = await findUserByUserID(user.userID);
+
+		if (!find) {
+			return next(new Error(`${500}:${`Cannot find user`}`));
+		}
+
+		if (user.role != "admin") {
+			return next(new Error(`${500}:${`Permisson dined `}`));
+		}
+
+		var update = await updateActiveByUserID(validBody.userID, validBody.active);
+
+		if (!update) {
+			return next(new Error(`${500}:${`Update active fail cannot update db`}`));
+		}
+
+		return res.send({
+			status: true,
+		});
+	} catch (e: any) {
+		return next(new Error(`${500}:${e.message}`));
+	}
+};
+
+const getFullUser = async (req: Request | any, res: Response, next: NextFunction) => {
+	try {
+		var user = req.user;
+
+		const find = await findUserByUserID(user.userID);
+
+		if (!find) {
+			return next(new Error(`${500}:${`Cannot find user`}`));
+		}
+
+		if (user.role != "admin") {
+			return next(new Error(`${500}:${`Permisson dined `}`));
+		}
+
+		const fullUser = (await getAllUser()).filter((item) => {
+			delete item.password;
+			delete item.code;
+			if (item.role != "admin") return item;
+		});
+
+		return res.send({
+			status: true,
+			data: fullUser,
+		});
+	} catch (e: any) {
+		return next(new Error(`${500}:${e.message}`));
+	}
+};
+
+export {
+	register,
+	login,
+	active,
+	sendCode,
+	forgotPass,
+	updateUser,
+	changePass,
+	manager,
+	getFullUser,
+};
