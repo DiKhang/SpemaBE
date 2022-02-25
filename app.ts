@@ -30,6 +30,7 @@ require("dotenv").config();
 // Initialize Swagger Express Middleware with our Swagger file
 let swaggerFile = path.join(process.cwd(), "swagger", "docs.yaml");
 
+app.use("/uploads", express.static("uploads"));
 app.use(express.json());
 app.use(
 	cors({
