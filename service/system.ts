@@ -55,4 +55,66 @@ const deleteFood = async (foodID: number) => {
 	}
 };
 
-export { getAllFood, insertFood, changeFood, findFood, deleteFood };
+const getAllGroupFood = async () => {
+	const find = await client.collection("GroupFood").find({}).toArray();
+	return find;
+};
+
+const insertGroupFood = async (group: GroupFood) => {
+	try {
+		const add = await client.collection("Group").insertOne(group);
+		return add.insertedId;
+	} catch (e: any) {
+		return false;
+	}
+};
+
+const findGroup = async (groupID: number) => {
+	const find = await client.collection("Group").findOne({
+		id: groupID,
+	});
+	return find;
+};
+
+const changeGroupFood = async (groupID: number, group: GroupFood | any) => {
+	delete group.id;
+	try {
+		const update = await client.collection("Group").updateOne(
+			{
+				id: groupID,
+			},
+			{
+				$set: {
+					...group,
+				},
+			},
+		);
+		return update.matchedCount;
+	} catch (e: any) {
+		return false;
+	}
+};
+
+const deleteGroup = async (groupID: number) => {
+	try {
+		const update = await client.collection("Group").deleteOne({
+			id: groupID,
+		});
+		return update.deletedCount;
+	} catch (e: any) {
+		return false;
+	}
+};
+
+export {
+	getAllFood,
+	insertFood,
+	changeFood,
+	findFood,
+	deleteFood,
+	insertGroupFood,
+	getAllGroupFood,
+	findGroup,
+	changeGroupFood,
+	deleteGroup,
+};
