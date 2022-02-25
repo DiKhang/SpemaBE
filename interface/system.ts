@@ -17,4 +17,25 @@ interface GroupFood {
 	decription: string;
 }
 
-export { Food, GroupFood };
+interface Hall {
+	name: string;
+	type: "Normal" | "Gold" | "Silver" | "Luxury";
+	isReady: boolean;
+	size: number;
+	userIDUse: number | null;
+	userNameUse: string | null;
+	id: number;
+}
+
+interface Table {
+	name: string;
+	sizeOnTable: number;
+	isReady: boolean;
+	userIDUse: number | null;
+	userNameUse: string | null;
+	listFood: number[];
+	id: number;
+	hallID: number;
+}
+
+export { Food, GroupFood, Hall, Table };

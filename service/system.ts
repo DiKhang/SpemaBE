@@ -1,7 +1,7 @@
 /** @format */
 
 import { getISOStringDate } from "../common";
-import { Food, GroupFood } from "../interface/system";
+import { Food, GroupFood, Hall, Table } from "../interface/system";
 import client from "../utils/mongodb";
 
 const getAllFood = async () => {
@@ -106,6 +106,108 @@ const deleteGroup = async (groupID: number) => {
 	}
 };
 
+const getAllTable = async () => {
+	const find = await client.collection("Table").find({}).toArray();
+	return find;
+};
+
+const findTable = async (tableID: number) => {
+	const find = await client.collection("Table").findOne({
+		id: tableID,
+	});
+	return find;
+};
+
+const insertTable = async (table: Table) => {
+	try {
+		const add = await client.collection("Table").insertOne(table);
+		return add.insertedId;
+	} catch (e: any) {
+		return false;
+	}
+};
+
+const deleteTable = async (tableID: number) => {
+	try {
+		const update = await client.collection("Table").deleteOne({
+			id: tableID,
+		});
+		return update.deletedCount;
+	} catch (e: any) {
+		return false;
+	}
+};
+
+const findHall = async (hallID: number) => {
+	const find = await client.collection("Hall").findOne({
+		id: hallID,
+	});
+	return find;
+};
+
+const getAllHall = async () => {
+	const find = await client.collection("Hall").find({}).toArray();
+	return find;
+};
+
+const insertHall = async (hall: Hall) => {
+	try {
+		const add = await client.collection("Hall").insertOne(hall);
+		return add.insertedId;
+	} catch (e: any) {
+		return false;
+	}
+};
+
+const deleteHall = async (hallID: number) => {
+	try {
+		const update = await client.collection("Hall").deleteOne({
+			id: hallID,
+		});
+		return update.deletedCount;
+	} catch (e: any) {
+		return false;
+	}
+};
+
+const changeHall = async (hallID: number, hall: Hall | any) => {
+	delete hall.id;
+	try {
+		const update = await client.collection("Hall").updateOne(
+			{
+				id: hallID,
+			},
+			{
+				$set: {
+					...hall,
+				},
+			},
+		);
+		return update.matchedCount;
+	} catch (e: any) {
+		return false;
+	}
+};
+
+const changeTable = async (tableID: number, table: Table | any) => {
+	delete table.id;
+	try {
+		const update = await client.collection("Table").updateOne(
+			{
+				id: tableID,
+			},
+			{
+				$set: {
+					...table,
+				},
+			},
+		);
+		return update.matchedCount;
+	} catch (e: any) {
+		return false;
+	}
+};
+
 export {
 	getAllFood,
 	insertFood,
@@ -117,4 +219,14 @@ export {
 	findGroup,
 	changeGroupFood,
 	deleteGroup,
+	getAllTable,
+	insertTable,
+	findHall,
+	deleteTable,
+	findTable,
+	getAllHall,
+	insertHall,
+	deleteHall,
+	changeHall,
+	changeTable,
 };
