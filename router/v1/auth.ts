@@ -9,6 +9,7 @@ import {
 	changePass,
 	forgotPass,
 	getFullUser,
+	getUser,
 	login,
 	manager,
 	register,
@@ -19,7 +20,7 @@ import {
 const router = express.Router();
 
 router.route("/register").post(register);
-router.route("/login").post(login);
+router.route("/login").get(auth, getUser).post(login);
 router.route("/active").post(active);
 router.route("/sendcode").post(sendCode);
 router.route("/forgotpass").post(forgotPass);

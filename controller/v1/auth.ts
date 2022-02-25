@@ -395,6 +395,24 @@ const getFullUser = async (req: Request | any, res: Response, next: NextFunction
 	}
 };
 
+const getUser = async (req: Request | any, res: Response, next: NextFunction) => {
+	try {
+		const user = req.user;
+
+		const find: any = await findUserByUserID(user.userID);
+
+		delete find.password;
+		delete find.code;
+
+		return res.send({
+			status: true,
+			data: find,
+		});
+	} catch (e: any) {
+		return next(new Error(`${500}:${e.message}`));
+	}
+};
+
 export {
 	register,
 	login,
@@ -405,4 +423,5 @@ export {
 	changePass,
 	manager,
 	getFullUser,
+	getUser,
 };

@@ -25,6 +25,8 @@ import {
 	insertGroupFood,
 	insertHall,
 	insertTable,
+	getFullTableByHallID,
+	getFullGroupAndFood,
 } from "../../service/system";
 import {
 	addFoodValid,
@@ -32,6 +34,7 @@ import {
 	addHallValid,
 	addTableValid,
 	deleteFoodValid,
+	getFullTableOfHallValid,
 	updateFoodValid,
 	updateGroupFoodValid,
 	updateHallValid,
@@ -168,6 +171,23 @@ const removeFood = async (req: Request | any, res: Response, next: NextFunction)
 
 		return res.send({
 			status: true,
+		});
+	} catch (e: any) {
+		return next(new Error(`${500}:${e.message}`));
+	}
+};
+
+const getMenu = async (req: Request | any, res: Response, next: NextFunction) => {
+	try {
+		var find = await (
+			await getAllFood()
+		).map((item: any) => {
+			delete item._id;
+			return item;
+		});
+		return res.send({
+			status: true,
+			data: find,
 		});
 	} catch (e: any) {
 		return next(new Error(`${500}:${e.message}`));
@@ -322,6 +342,18 @@ const removeGroupFood = async (req: Request | any, res: Response, next: NextFunc
 
 		return res.send({
 			status: true,
+		});
+	} catch (e: any) {
+		return next(new Error(`${500}:${e.message}`));
+	}
+};
+
+const getFullGroupFood = async (req: Request | any, res: Response, next: NextFunction) => {
+	try {
+		const find = await getFullGroupAndFood();
+		return res.send({
+			status: true,
+			data: find,
 		});
 	} catch (e: any) {
 		return next(new Error(`${500}:${e.message}`));
@@ -611,6 +643,44 @@ const updateHall = async (req: Request | any, res: Response, next: NextFunction)
 	}
 };
 
+const getFullHall = async (req: Request | any, res: Response, next: NextFunction) => {
+	try {
+		const hall = await getAllHall();
+		return res.send({
+			status: true,
+			data: hall,
+		});
+	} catch (e: any) {
+		return next(new Error(`${500}:${e.message}`));
+	}
+};
+
+const getFullTableOfHall = async (req: Request | any, res: Response, next: NextFunction) => {
+	try {
+		const body = req.body;
+		const validBody = validate(body, getFullTableOfHallValid);
+
+		if (!validBody) {
+			return next(new Error(`${500}:${"Validate data fail"}`));
+		}
+
+		const findH = await findHall(validBody.id);
+
+		if (!findH) {
+			return next(new Error(`${500}:${"Cannot find table"}`));
+		}
+
+		const find = await getFullTableByHallID(validBody.id);
+
+		return res.send({
+			status: true,
+			data: find,
+		});
+	} catch (e: any) {
+		return next(new Error(`${500}:${e.message}`));
+	}
+};
+
 export {
 	addFood,
 	updateFood,
@@ -624,4 +694,8 @@ export {
 	removeHall,
 	updateTable,
 	updateHall,
+	getMenu,
+	getFullHall,
+	getFullTableOfHall,
+	getFullGroupFood,
 };

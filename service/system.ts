@@ -60,6 +60,49 @@ const getAllGroupFood = async () => {
 	return find;
 };
 
+const getFullGroupAndFood = async () => {
+	const find = await client
+		.collection("Group")
+		.aggregate([
+			{
+				$unwind: {
+					path: "$listFood",
+				},
+			},
+			{
+				$lookup: {
+					from: "Food",
+					localField: "listFood",
+					foreignField: "id",
+					as: "listFood",
+				},
+			},
+			{
+				$group: {
+					_id: "$id",
+					id: {
+						$first: "$id",
+					},
+					listFood: {
+						$push: "$listFood",
+					},
+					name: {
+						$first: "$name",
+					},
+					price: {
+						$first: "$price",
+					},
+					decription: {
+						$first: "$decription",
+					},
+				},
+			},
+		])
+		.toArray();
+
+	return find;
+};
+
 const insertGroupFood = async (group: GroupFood) => {
 	try {
 		const add = await client.collection("Group").insertOne(group);
@@ -208,6 +251,16 @@ const changeTable = async (tableID: number, table: Table | any) => {
 	}
 };
 
+const getFullTableByHallID = async (hallID: number) => {
+	const find = await client
+		.collection("Table")
+		.find({
+			hallID: hallID,
+		})
+		.toArray();
+	return find;
+};
+
 export {
 	getAllFood,
 	insertFood,
@@ -229,4 +282,6 @@ export {
 	deleteHall,
 	changeHall,
 	changeTable,
+	getFullTableByHallID,
+	getFullGroupAndFood,
 };

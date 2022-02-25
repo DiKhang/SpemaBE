@@ -188,3 +188,11 @@ export const updateHallValid: Validator[] = [
 		isRequire: true,
 	},
 ];
+
+export const getFullTableOfHallValid: Validator[] = [
+	{
+		name: "id",
+		type: "number",
+		isRequire: true,
+	},
+];
