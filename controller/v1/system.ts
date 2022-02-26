@@ -1007,7 +1007,7 @@ const updateStatusPaid = async (req: Request | any, res: Response, next: NextFun
 		}
 
 		await sendHistory(
-			`${user.name} vừa chỉnh sửa trạng thái thanh toán một yêu cầu đặt tiệc của khách hàng tên ${request.userName} thành ${validBody.status}`,
+			`${user.name} vừa chỉnh sửa trạng thái thanh toán một yêu cầu đặt tiệc của khách hàng tên ${request.userName} thành ${validBody.isPaid}`,
 			user.userID,
 			request,
 		);

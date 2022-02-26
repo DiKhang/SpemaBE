@@ -455,7 +455,7 @@ const addHistory = async (history: History) => {
 
 const addNotifi = async (notifi: Notifi) => {
 	try {
-		const add = await client.collection("History").insertOne(notifi);
+		const add = await client.collection("Notifi").insertOne(notifi);
 		return add.insertedId;
 	} catch (e: any) {
 		return false;
