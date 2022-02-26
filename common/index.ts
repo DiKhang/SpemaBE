@@ -4,6 +4,9 @@ import path from "path";
 import { Validator } from "../interface";
 import bcrypt from "bcrypt";
 import admin from "../utils/firebase";
+import { History, Notifi } from "../interface/system";
+import { addHistory, addNotifi } from "../service/system";
+import { io } from "../utils/socket";
 
 const writeLog = (code: any, message: any, req: any) => {
 	let logPath = path.join(process.cwd(), "logs", "logs.csv");
@@ -100,4 +103,40 @@ const getISOStringDate = (date: Date) => {
 	return date.toISOString();
 };
 
-export { writeLog, validate, uploadFile, generateCode, hashPass, verifyPass, getISOStringDate };
+const sendHistory = async (content: string, userIDAction: number, actionObject: object) => {
+	var history: History = {
+		actionObject: actionObject,
+		content: content,
+		time: getISOStringDate(new Date()),
+		userIDAction: userIDAction,
+	};
+
+	await addHistory(history);
+
+	io.emit(`${history.userIDAction}`, `${history}`);
+};
+
+const sendNotifi = async (content: string, userID: number, actionObject: object) => {
+	var notifi: Notifi = {
+		actionObject: actionObject,
+		content: content,
+		time: getISOStringDate(new Date()),
+		userID: userID,
+	};
+
+	await addNotifi(notifi);
+
+	io.emit(`${notifi.userID}`, `${notifi}`);
+};
+
+export {
+	writeLog,
+	validate,
+	uploadFile,
+	generateCode,
+	hashPass,
+	verifyPass,
+	getISOStringDate,
+	sendHistory,
+	sendNotifi,
+};

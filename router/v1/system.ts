@@ -7,11 +7,16 @@ import {
 	addFood,
 	addGroupFood,
 	addHall,
+	addRequestOrder,
 	addTable,
 	getFullGroupFood,
 	getFullHall,
+	getFullRequestOrder,
+	getFullRequestOrderByHallID,
+	getFullRequestOrderByUserID,
 	getFullTableOfHall,
 	getMenu,
+	getRequestOrder,
 	removeFood,
 	removeGroupFood,
 	removeHall,
@@ -19,6 +24,9 @@ import {
 	updateFood,
 	updateGroupFood,
 	updateHall,
+	updateRequestOrder,
+	updateStatusPaid,
+	updateStatusRequestOrder,
 	updateTable,
 } from "../../controller/v1/system";
 import { auth, upload } from "../../utils/middleware";
@@ -49,5 +57,15 @@ router
 	.put(auth, addHall)
 	.delete(auth, removeHall)
 	.post(auth, updateHall);
+router
+	.route("/requestorder")
+	.get(getRequestOrder)
+	.put(auth, addRequestOrder)
+	.post(auth, updateRequestOrder);
+router.route("/allrequestorder").get(getFullRequestOrder);
+router.route("/requestorderbyuserid").get(auth, getFullRequestOrderByUserID);
+router.route("/requestorderbyhallid").get(getFullRequestOrderByHallID);
+router.route("/updatestatusrequestorder").post(auth, updateStatusRequestOrder);
+router.route("/updatestatuspaid").post(auth, updateStatusPaid);
 
 export default router;

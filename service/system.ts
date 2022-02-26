@@ -1,7 +1,7 @@
 /** @format */
 
 import { getISOStringDate } from "../common";
-import { Food, GroupFood, Hall, Table } from "../interface/system";
+import { Food, GroupFood, Hall, History, Notifi, RequestOrder, Table } from "../interface/system";
 import client from "../utils/mongodb";
 
 const getAllFood = async () => {
@@ -84,7 +84,7 @@ const getFullGroupAndFood = async () => {
 						$first: "$id",
 					},
 					listFood: {
-						$push: "$listFood",
+						$push: { $first: "$listFood" },
 					},
 					name: {
 						$first: "$name",
@@ -261,6 +261,754 @@ const getFullTableByHallID = async (hallID: number) => {
 	return find;
 };
 
+const insertRequestOrder = async (request: RequestOrder) => {
+	try {
+		const add = await client.collection("RequestOrder").insertOne(request);
+		return add.insertedId;
+	} catch (e: any) {
+		return false;
+	}
+};
+
+const findAllRequestOrder = async () => {
+	const find = await client.collection("RequestOrder").find({}).toArray();
+	return find;
+};
+
+const findRequestOrder = async (requestID: number) => {
+	const find = await client.collection("RequestOrder").findOne({
+		id: requestID,
+	});
+	return find;
+};
+
+const changeRequestOrder = async (requestID: number, request: RequestOrder | any) => {
+	delete request.id;
+	try {
+		const update = await client.collection("RequestOrder").updateOne(
+			{
+				id: requestID,
+			},
+			{
+				$set: {
+					...request,
+				},
+			},
+		);
+		return update.matchedCount;
+	} catch (e: any) {
+		return false;
+	}
+};
+
+const changeStatusRequestOrder = async (requestID: number, status: string) => {
+	try {
+		const update = await client.collection("RequestOrder").updateOne(
+			{
+				id: requestID,
+			},
+			{
+				$set: {
+					status: status,
+				},
+			},
+		);
+		return update.matchedCount;
+	} catch (e: any) {
+		return false;
+	}
+};
+
+const removeRequestOrderOfHallandTable = async (requestID: number) => {
+	try {
+		var update: boolean = true;
+		await client
+			.collection("Hall")
+			.updateOne(
+				{
+					requestOrderID: requestID,
+				},
+				{
+					$set: {
+						requestOrderID: null,
+					},
+				},
+			)
+			.catch((e) => {
+				update = false;
+			});
+
+		if (!update) {
+			return false;
+		}
+
+		await client
+			.collection("Table")
+			.updateMany(
+				{
+					requestOrderID: requestID,
+				},
+				{
+					$set: {
+						requestOrderID: null,
+						listFood: [],
+					},
+				},
+			)
+			.catch((e) => {
+				update = false;
+			});
+
+		if (!update) {
+			return false;
+		}
+
+		return true;
+	} catch (e: any) {
+		return false;
+	}
+};
+
+const addRequestOrderOfHallandTable = async (
+	hallID: number,
+	requestID: number,
+	listFood: number[],
+	tableID: number[],
+) => {
+	try {
+		var update: boolean = true;
+		await client
+			.collection("Hall")
+			.updateOne(
+				{
+					id: hallID,
+				},
+				{
+					$set: {
+						requestOrderID: requestID,
+					},
+				},
+			)
+			.catch((e) => {
+				update = false;
+			});
+
+		if (!update) {
+			return false;
+		}
+
+		await tableID.map(async (item) => {
+			await client
+				.collection("Table")
+				.updateOne(
+					{
+						id: item,
+					},
+					{
+						$set: {
+							requestOrderID: requestID,
+							listFood: listFood,
+						},
+					},
+				)
+				.catch(() => {
+					update = false;
+				});
+		});
+
+		if (!update) {
+			return false;
+		}
+
+		return true;
+	} catch (e: any) {
+		return false;
+	}
+};
+
+const changeStatusPaidRequestOrder = async (requestID: number, isPaid: string) => {
+	try {
+		const update = await client.collection("RequestOrder").updateOne(
+			{
+				id: requestID,
+			},
+			{
+				$set: {
+					isPaid: isPaid,
+				},
+			},
+		);
+		return update.matchedCount;
+	} catch (e: any) {
+		return false;
+	}
+};
+
+const addHistory = async (history: History) => {
+	try {
+		const add = await client.collection("History").insertOne(history);
+		return add.insertedId;
+	} catch (e: any) {
+		return false;
+	}
+};
+
+const addNotifi = async (notifi: Notifi) => {
+	try {
+		const add = await client.collection("History").insertOne(notifi);
+		return add.insertedId;
+	} catch (e: any) {
+		return false;
+	}
+};
+
+const findRequestOrderFullObject = async (requestID: number) => {
+	const find = await client
+		.collection("RequestOrder")
+		.aggregate([
+			{
+				$match: {
+					id: requestID,
+				},
+			},
+			{
+				$unwind: {
+					path: "$tableID",
+				},
+			},
+			{
+				$lookup: {
+					from: "Table",
+					localField: "tableID",
+					foreignField: "id",
+					as: "tableID",
+				},
+			},
+			{
+				$group: {
+					_id: "$id",
+					tableID: {
+						$push: {
+							$first: "$tableID",
+						},
+					},
+					hallID: {
+						$first: "$hallID",
+					},
+					isPaid: {
+						$first: "$isPaid",
+					},
+					listFood: {
+						$first: "$listFood",
+					},
+					note: {
+						$first: "$note",
+					},
+					status: {
+						$first: "$status",
+					},
+					time: {
+						$first: "$time",
+					},
+					totalMoney: {
+						$first: "$totalMoney",
+					},
+					type: {
+						$first: "$type",
+					},
+					userID: {
+						$first: "$userID",
+					},
+					userName: {
+						$first: "$userName",
+					},
+					userPhone: {
+						$first: "$userPhone",
+					},
+					id: {
+						$first: "$id",
+					},
+					timeStart: {
+						$first: "$timeStart",
+					},
+				},
+			},
+			{
+				$unwind: {
+					path: "$listFood",
+				},
+			},
+			{
+				$lookup: {
+					from: "Food",
+					localField: "listFood",
+					foreignField: "id",
+					as: "listFood",
+				},
+			},
+			{
+				$group: {
+					_id: "$id",
+					tableID: {
+						$first: "$tableID",
+					},
+					hallID: {
+						$first: "$hallID",
+					},
+					isPaid: {
+						$first: "$isPaid",
+					},
+					listFood: {
+						$push: {
+							$first: "$listFood",
+						},
+					},
+					note: {
+						$first: "$note",
+					},
+					status: {
+						$first: "$status",
+					},
+					time: {
+						$first: "$time",
+					},
+					totalMoney: {
+						$first: "$totalMoney",
+					},
+					type: {
+						$first: "$type",
+					},
+					userID: {
+						$first: "$userID",
+					},
+					userName: {
+						$first: "$userName",
+					},
+					userPhone: {
+						$first: "$userPhone",
+					},
+					id: {
+						$first: "$id",
+					},
+					timeStart: {
+						$first: "$timeStart",
+					},
+				},
+			},
+		])
+		.toArray();
+	return find;
+};
+
+const findFullRequestOrderFullObject = async () => {
+	const find = await client
+		.collection("RequestOrder")
+		.aggregate([
+			{
+				$unwind: {
+					path: "$tableID",
+				},
+			},
+			{
+				$lookup: {
+					from: "Table",
+					localField: "tableID",
+					foreignField: "id",
+					as: "tableID",
+				},
+			},
+			{
+				$group: {
+					_id: "$id",
+					tableID: {
+						$push: {
+							$first: "$tableID",
+						},
+					},
+					hallID: {
+						$first: "$hallID",
+					},
+					isPaid: {
+						$first: "$isPaid",
+					},
+					listFood: {
+						$first: "$listFood",
+					},
+					note: {
+						$first: "$note",
+					},
+					status: {
+						$first: "$status",
+					},
+					time: {
+						$first: "$time",
+					},
+					totalMoney: {
+						$first: "$totalMoney",
+					},
+					type: {
+						$first: "$type",
+					},
+					userID: {
+						$first: "$userID",
+					},
+					userName: {
+						$first: "$userName",
+					},
+					userPhone: {
+						$first: "$userPhone",
+					},
+					id: {
+						$first: "$id",
+					},
+					timeStart: {
+						$first: "$timeStart",
+					},
+				},
+			},
+			{
+				$unwind: {
+					path: "$listFood",
+				},
+			},
+			{
+				$lookup: {
+					from: "Food",
+					localField: "listFood",
+					foreignField: "id",
+					as: "listFood",
+				},
+			},
+			{
+				$group: {
+					_id: "$id",
+					tableID: {
+						$first: "$tableID",
+					},
+					hallID: {
+						$first: "$hallID",
+					},
+					isPaid: {
+						$first: "$isPaid",
+					},
+					listFood: {
+						$push: {
+							$first: "$listFood",
+						},
+					},
+					note: {
+						$first: "$note",
+					},
+					status: {
+						$first: "$status",
+					},
+					time: {
+						$first: "$time",
+					},
+					totalMoney: {
+						$first: "$totalMoney",
+					},
+					type: {
+						$first: "$type",
+					},
+					userID: {
+						$first: "$userID",
+					},
+					userName: {
+						$first: "$userName",
+					},
+					userPhone: {
+						$first: "$userPhone",
+					},
+					id: {
+						$first: "$id",
+					},
+					timeStart: {
+						$first: "$timeStart",
+					},
+				},
+			},
+		])
+		.toArray();
+	return find;
+};
+
+const findFullRequestOrderFullObjectByUserID = async (userID: number) => {
+	const find = await client
+		.collection("RequestOrder")
+		.aggregate([
+			{
+				$match: {
+					userID: userID,
+				},
+			},
+			{
+				$unwind: {
+					path: "$tableID",
+				},
+			},
+			{
+				$lookup: {
+					from: "Table",
+					localField: "tableID",
+					foreignField: "id",
+					as: "tableID",
+				},
+			},
+			{
+				$group: {
+					_id: "$id",
+					tableID: {
+						$push: {
+							$first: "$tableID",
+						},
+					},
+					hallID: {
+						$first: "$hallID",
+					},
+					isPaid: {
+						$first: "$isPaid",
+					},
+					listFood: {
+						$first: "$listFood",
+					},
+					note: {
+						$first: "$note",
+					},
+					status: {
+						$first: "$status",
+					},
+					time: {
+						$first: "$time",
+					},
+					totalMoney: {
+						$first: "$totalMoney",
+					},
+					type: {
+						$first: "$type",
+					},
+					userID: {
+						$first: "$userID",
+					},
+					userName: {
+						$first: "$userName",
+					},
+					userPhone: {
+						$first: "$userPhone",
+					},
+					id: {
+						$first: "$id",
+					},
+					timeStart: {
+						$first: "$timeStart",
+					},
+				},
+			},
+			{
+				$unwind: {
+					path: "$listFood",
+				},
+			},
+			{
+				$lookup: {
+					from: "Food",
+					localField: "listFood",
+					foreignField: "id",
+					as: "listFood",
+				},
+			},
+			{
+				$group: {
+					_id: "$id",
+					tableID: {
+						$first: "$tableID",
+					},
+					hallID: {
+						$first: "$hallID",
+					},
+					isPaid: {
+						$first: "$isPaid",
+					},
+					listFood: {
+						$push: {
+							$first: "$listFood",
+						},
+					},
+					note: {
+						$first: "$note",
+					},
+					status: {
+						$first: "$status",
+					},
+					time: {
+						$first: "$time",
+					},
+					totalMoney: {
+						$first: "$totalMoney",
+					},
+					type: {
+						$first: "$type",
+					},
+					userID: {
+						$first: "$userID",
+					},
+					userName: {
+						$first: "$userName",
+					},
+					userPhone: {
+						$first: "$userPhone",
+					},
+					id: {
+						$first: "$id",
+					},
+					timeStart: {
+						$first: "$timeStart",
+					},
+				},
+			},
+		])
+		.toArray();
+	return find;
+};
+
+const findFullRequestOrderFullObjectByHallID = async (hallID: number) => {
+	const find = await client
+		.collection("RequestOrder")
+		.aggregate([
+			{
+				$match: {
+					hallID: hallID,
+				},
+			},
+			{
+				$unwind: {
+					path: "$tableID",
+				},
+			},
+			{
+				$lookup: {
+					from: "Table",
+					localField: "tableID",
+					foreignField: "id",
+					as: "tableID",
+				},
+			},
+			{
+				$group: {
+					_id: "$id",
+					tableID: {
+						$push: {
+							$first: "$tableID",
+						},
+					},
+					hallID: {
+						$first: "$hallID",
+					},
+					isPaid: {
+						$first: "$isPaid",
+					},
+					listFood: {
+						$first: "$listFood",
+					},
+					note: {
+						$first: "$note",
+					},
+					status: {
+						$first: "$status",
+					},
+					time: {
+						$first: "$time",
+					},
+					totalMoney: {
+						$first: "$totalMoney",
+					},
+					type: {
+						$first: "$type",
+					},
+					userID: {
+						$first: "$userID",
+					},
+					userName: {
+						$first: "$userName",
+					},
+					userPhone: {
+						$first: "$userPhone",
+					},
+					id: {
+						$first: "$id",
+					},
+					timeStart: {
+						$first: "$timeStart",
+					},
+				},
+			},
+			{
+				$unwind: {
+					path: "$listFood",
+				},
+			},
+			{
+				$lookup: {
+					from: "Food",
+					localField: "listFood",
+					foreignField: "id",
+					as: "listFood",
+				},
+			},
+			{
+				$group: {
+					_id: "$id",
+					tableID: {
+						$first: "$tableID",
+					},
+					hallID: {
+						$first: "$hallID",
+					},
+					isPaid: {
+						$first: "$isPaid",
+					},
+					listFood: {
+						$push: {
+							$first: "$listFood",
+						},
+					},
+					note: {
+						$first: "$note",
+					},
+					status: {
+						$first: "$status",
+					},
+					time: {
+						$first: "$time",
+					},
+					totalMoney: {
+						$first: "$totalMoney",
+					},
+					type: {
+						$first: "$type",
+					},
+					userID: {
+						$first: "$userID",
+					},
+					userName: {
+						$first: "$userName",
+					},
+					userPhone: {
+						$first: "$userPhone",
+					},
+					id: {
+						$first: "$id",
+					},
+					timeStart: {
+						$first: "$timeStart",
+					},
+				},
+			},
+		])
+		.toArray();
+	return find;
+};
+
 export {
 	getAllFood,
 	insertFood,
@@ -284,4 +1032,18 @@ export {
 	changeTable,
 	getFullTableByHallID,
 	getFullGroupAndFood,
+	insertRequestOrder,
+	findAllRequestOrder,
+	findRequestOrder,
+	changeRequestOrder,
+	changeStatusRequestOrder,
+	removeRequestOrderOfHallandTable,
+	addRequestOrderOfHallandTable,
+	changeStatusPaidRequestOrder,
+	addHistory,
+	addNotifi,
+	findRequestOrderFullObject,
+	findFullRequestOrderFullObject,
+	findFullRequestOrderFullObjectByUserID,
+	findFullRequestOrderFullObjectByHallID,
 };

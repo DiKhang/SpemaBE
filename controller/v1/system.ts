@@ -1,8 +1,8 @@
 /** @format */
 
 import { Response, Request, NextFunction } from "express";
-import { validate } from "../../common";
-import { Food, GroupFood, Hall, Table } from "../../interface/system";
+import { getISOStringDate, sendHistory, sendNotifi, validate } from "../../common";
+import { Food, GroupFood, Hall, RequestOrder, Table } from "../../interface/system";
 import { findUserByUserID } from "../../service/auth";
 import {
 	changeFood,
@@ -27,17 +27,33 @@ import {
 	insertTable,
 	getFullTableByHallID,
 	getFullGroupAndFood,
+	insertRequestOrder,
+	findAllRequestOrder,
+	findRequestOrder,
+	changeRequestOrder,
+	changeStatusRequestOrder,
+	removeRequestOrderOfHallandTable,
+	addRequestOrderOfHallandTable,
+	changeStatusPaidRequestOrder,
+	findRequestOrderFullObject,
+	findFullRequestOrderFullObject,
+	findFullRequestOrderFullObjectByUserID,
+	findFullRequestOrderFullObjectByHallID,
 } from "../../service/system";
 import {
 	addFoodValid,
 	addGroupFoodValid,
 	addHallValid,
+	addRequestOrderValid,
 	addTableValid,
 	deleteFoodValid,
 	getFullTableOfHallValid,
 	updateFoodValid,
 	updateGroupFoodValid,
 	updateHallValid,
+	updateRequestOrderValid,
+	updateStatusOrderValid,
+	updateStatusPaidOrderValid,
 	updateTableValid,
 } from "../../validate/system";
 
@@ -77,6 +93,8 @@ const addFood = async (req: Request | any, res: Response, next: NextFunction) =>
 		if (!add) {
 			return next(new Error(`${500}:${"Add food fail cannot update db"}`));
 		}
+
+		await sendHistory(`${user.name} vừa thêm một món ăn`, user.userID, food);
 
 		return res.send({
 			status: true,
@@ -128,6 +146,8 @@ const updateFood = async (req: Request | any, res: Response, next: NextFunction)
 			return next(new Error(`${500}:${"Update food fail cannot update db"}`));
 		}
 
+		await sendHistory(`${user.name} vừa chỉnh sửa một món ăn`, user.userIDAction, food);
+
 		return res.send({
 			status: true,
 			data: food,
@@ -168,6 +188,8 @@ const removeFood = async (req: Request | any, res: Response, next: NextFunction)
 		if (!deleteF) {
 			return next(new Error(`${500}:${"Delete food fail cannot update db"}`));
 		}
+
+		await sendHistory(`${user.name} vừa xoá một món ăn`, user.userID, findF);
 
 		return res.send({
 			status: true,
@@ -240,6 +262,8 @@ const addGroupFood = async (req: Request | any, res: Response, next: NextFunctio
 			return next(new Error(`${500}:${"Add group food fail cannot update db"}`));
 		}
 
+		await sendHistory(`${user.name} vừa thêm một nhóm món ăn`, user.userID, group);
+
 		return res.send({
 			status: true,
 			data: group,
@@ -299,6 +323,8 @@ const updateGroupFood = async (req: Request | any, res: Response, next: NextFunc
 			return next(new Error(`${500}:${"Update group food fail cannot update db"}`));
 		}
 
+		await sendHistory(`${user.name} vừa chỉnh sửa một nhóm món ăn`, user.userID, group);
+
 		return res.send({
 			status: true,
 			data: group,
@@ -339,6 +365,8 @@ const removeGroupFood = async (req: Request | any, res: Response, next: NextFunc
 		if (!deleteF) {
 			return next(new Error(`${500}:${"Delete group food fail cannot update db"}`));
 		}
+
+		await sendHistory(`${user.name} vừa xoá một nhóm món ăn`, user.userID, findG);
 
 		return res.send({
 			status: true,
@@ -396,6 +424,7 @@ const addTable = async (req: Request | any, res: Response, next: NextFunction) =
 			id: allTable.length + 1,
 			userIDUse: null,
 			userNameUse: null,
+			requestOrderID: null,
 		};
 
 		const add = await insertTable(table);
@@ -403,6 +432,8 @@ const addTable = async (req: Request | any, res: Response, next: NextFunction) =
 		if (!add) {
 			return next(new Error(`${500}:${"Add group food fail cannot update db"}`));
 		}
+
+		await sendHistory(`${user.name} vừa thêm một bàn ăn`, user.userID, table);
 
 		return res.send({
 			status: true,
@@ -445,6 +476,8 @@ const removeTable = async (req: Request | any, res: Response, next: NextFunction
 			return next(new Error(`${500}:${"Delete table fail cannot update db"}`));
 		}
 
+		await sendHistory(`${user.name} vừa xoá một bàn ăn`, user.userID, findT);
+
 		return res.send({
 			status: true,
 		});
@@ -483,6 +516,7 @@ const addHall = async (req: Request | any, res: Response, next: NextFunction) =>
 			type: validBody.type,
 			userIDUse: null,
 			userNameUse: null,
+			requestOrderID: null,
 		};
 
 		const add = await insertHall(hall);
@@ -490,6 +524,8 @@ const addHall = async (req: Request | any, res: Response, next: NextFunction) =>
 		if (!add) {
 			return next(new Error(`${500}:${"Add hall fail cannot update db"}`));
 		}
+
+		await sendHistory(`${user.name} vừa thêm một sảnh ăn`, user.userID, hall);
 
 		return res.send({
 			status: true,
@@ -531,6 +567,8 @@ const removeHall = async (req: Request | any, res: Response, next: NextFunction)
 		if (!deleteH) {
 			return next(new Error(`${500}:${"Delete hall fail cannot update db"}`));
 		}
+
+		await sendHistory(`${user.name} vừa xoá một sảnh ăn`, user.userID, findH);
 
 		return res.send({
 			status: true,
@@ -575,6 +613,7 @@ const updateTable = async (req: Request | any, res: Response, next: NextFunction
 			id: findT.id,
 			userIDUse: findT.userIDUse,
 			userNameUse: findT.userNameUse,
+			requestOrderID: findT.requestOrderID,
 		};
 
 		const update = await changeTable(table.id, table);
@@ -582,6 +621,8 @@ const updateTable = async (req: Request | any, res: Response, next: NextFunction
 		if (!update) {
 			return next(new Error(`${500}:${"Update group food fail cannot update db"}`));
 		}
+
+		await sendHistory(`${user.name} vừa chỉnh sửa một bàn ăn`, user.userID, table);
 
 		return res.send({
 			status: true,
@@ -626,6 +667,7 @@ const updateHall = async (req: Request | any, res: Response, next: NextFunction)
 			type: validBody.type,
 			userIDUse: findH.userIDUse,
 			userNameUse: findH.userNameUse,
+			requestOrderID: findH.requestOrderID,
 		};
 
 		const update = await changeHall(hall.id, hall);
@@ -633,6 +675,8 @@ const updateHall = async (req: Request | any, res: Response, next: NextFunction)
 		if (!update) {
 			return next(new Error(`${500}:${"Update group food fail cannot update db"}`));
 		}
+
+		await sendHistory(`${user.name} vừa chỉnh sửa một sảnh ăn`, user.userID, hall);
 
 		return res.send({
 			status: true,
@@ -681,6 +725,404 @@ const getFullTableOfHall = async (req: Request | any, res: Response, next: NextF
 	}
 };
 
+const addRequestOrder = async (req: Request | any, res: Response, next: NextFunction) => {
+	try {
+		const body = req.body;
+		const validBody = validate(body, addRequestOrderValid);
+		const user = req.user;
+
+		if (!validBody) {
+			return next(new Error(`${500}:${"Validate data fail"}`));
+		}
+
+		const find = await findUserByUserID(user.userID);
+
+		if (!find || !find.active) {
+			return next(new Error(`${500}:${"Cannot find user"}`));
+		}
+
+		const allRequest = await findAllRequestOrder();
+
+		const request: RequestOrder = {
+			hallID: validBody.hallID,
+			isPaid: "unpaid",
+			listFood: validBody.listFood,
+			note: validBody.note,
+			status: "pending",
+			tableID: validBody.tableID,
+			time: getISOStringDate(new Date()),
+			timeStart: validBody.timeStart,
+			totalMoney: validBody.totalMoney,
+			type: validBody.type,
+			userID: user.userID,
+			userName: user.name,
+			userPhone: user.phone,
+			id: allRequest.length + 1,
+		};
+
+		const add = await insertRequestOrder(request);
+
+		if (!add) {
+			return next(new Error(`${500}:${"Add request order fail cannot update db"}`));
+		}
+
+		await sendHistory(`${user.name} gửi một yêu cầu đặt tiệc`, user.userID, request);
+
+		await sendNotifi(`Bạn vừa gửi yêu cầu đặt tiệc thành công .`, request.userID, request);
+
+		return res.send({
+			status: true,
+			data: request,
+		});
+	} catch (e: any) {
+		return next(new Error(`${500}:${e.message}`));
+	}
+};
+
+const updateRequestOrder = async (req: Request | any, res: Response, next: NextFunction) => {
+	try {
+		const body = req.body;
+		const validBody = validate(body, updateRequestOrderValid);
+		const user = req.user;
+
+		if (!validBody) {
+			return next(new Error(`${500}:${"Validate data fail"}`));
+		}
+
+		const find = await findUserByUserID(user.userID);
+
+		if (!find || !find.active) {
+			return next(new Error(`${500}:${"Cannot find user"}`));
+		}
+
+		if (find.role != "admin") {
+			return next(new Error(`${500}:${"Permisson denied"}`));
+		}
+
+		const findRequest = await findRequestOrder(validBody.id);
+
+		if (!findRequest) {
+			return next(new Error(`${500}:${"Cannot find request"}`));
+		}
+
+		if (findRequest.status != "pending" && findRequest.status != "denied") {
+			return next(new Error(`${500}:${"Cannot update request after accept "}`));
+		}
+
+		const request: RequestOrder = {
+			hallID: validBody.hallID,
+			totalMoney: validBody.totalMoney,
+			listFood: validBody.listFood,
+			timeStart: validBody.timeStart,
+			note: validBody.note,
+			type: validBody.type,
+			tableID: validBody.tableID,
+			time: findRequest.time,
+			id: findRequest.id,
+			isPaid: findRequest.isPaid,
+			status: findRequest.status,
+			userID: findRequest.userID,
+			userName: findRequest.userName,
+			userPhone: findRequest.userPhone,
+		};
+
+		const update = await changeRequestOrder(validBody.id, request);
+		if (!update) {
+			return next(new Error(`${500}:${"Update request order fail cannot update db"}`));
+		}
+
+		await sendHistory(
+			`${user.name} vừa chỉnh sửa một yêu cầu đặt tiệc của khách hàng tên ${request.userName}`,
+			user.userID,
+			request,
+		);
+
+		await sendNotifi(
+			`Admin ${user.name} đã chỉnh sửa một yêu cầu đặt tiệc của bạn ID tiệc:${request.id}.`,
+			request.userID,
+			request,
+		);
+
+		return res.send({
+			status: true,
+			data: request,
+		});
+	} catch (e: any) {
+		return next(new Error(`${500}:${e.message}`));
+	}
+};
+
+const updateStatusRequestOrder = async (req: Request | any, res: Response, next: NextFunction) => {
+	try {
+		const body = req.body;
+		const validBody = validate(body, updateStatusOrderValid);
+		const user = req.user;
+
+		if (!validBody) {
+			return next(new Error(`${500}:${"Validate data fail"}`));
+		}
+
+		const find = await findUserByUserID(user.userID);
+
+		if (!find || !find.active) {
+			return next(new Error(`${500}:${"Cannot find user"}`));
+		}
+
+		if (find.role != "admin") {
+			return next(new Error(`${500}:${"Permisson denied"}`));
+		}
+
+		const request = await findRequestOrder(validBody.id);
+
+		if (!request) {
+			return next(new Error(`${500}:${"Cannot find request order"}`));
+		}
+
+		if (request.status == "end") {
+			return next(new Error(`${500}:${"Cannot update request status is end"}`));
+		}
+
+		switch (validBody.status) {
+			case "pending": {
+				var handle = await removeRequestOrderOfHallandTable(validBody.id);
+				if (!handle) {
+					return next(new Error(`${500}:${"Update status request order fail cannot update db"}`));
+				}
+				break;
+			}
+			case "accept": {
+				break;
+			}
+			case "denied": {
+				var handle = await removeRequestOrderOfHallandTable(validBody.id);
+				if (!handle) {
+					return next(new Error(`${500}:${"Update status request order fail cannot update db"}`));
+				}
+				break;
+			}
+			case "starting": {
+				if (request.isPaid != "paid") {
+					return next(
+						new Error(`${500}:${"Cannot update status starting for party not full paid"}`),
+					);
+				}
+				var handle = await addRequestOrderOfHallandTable(
+					request.hallID,
+					validBody.id,
+					request.listFood,
+					request.tableID,
+				);
+				if (!handle) {
+					return next(new Error(`${500}:${"Update status request order fail cannot update db"}`));
+				}
+				break;
+			}
+			case "end": {
+				var handle = await removeRequestOrderOfHallandTable(validBody.id);
+				if (!handle) {
+					return next(new Error(`${500}:${"Update status request order fail cannot update db"}`));
+				}
+				break;
+			}
+			default: {
+				return next(new Error(`${500}:${`Status unknown`}`));
+			}
+		}
+
+		var update = await changeStatusRequestOrder(validBody.id, validBody.status);
+
+		if (!update) {
+			return next(new Error(`${500}:${"Update status request order fail cannot update db"}`));
+		}
+
+		await sendHistory(
+			`${user.name} vừa chỉnh sửa trạng thái một yêu cầu đặt tiệc của khách hàng tên ${request.userName} thành ${validBody.status}`,
+			user.userID,
+			request,
+		);
+
+		await sendNotifi(
+			`Admin ${user.name} đã update trạng thái yêu cầu đặt tiệc của bạn thành ${validBody.status} ID tiệc:${request.id}.`,
+			request.userID,
+			request,
+		);
+
+		return res.send({
+			status: true,
+		});
+	} catch (e: any) {
+		return next(new Error(`${500}:${e.message}`));
+	}
+};
+
+const updateStatusPaid = async (req: Request | any, res: Response, next: NextFunction) => {
+	try {
+		const body = req.body;
+		const validBody = validate(body, updateStatusPaidOrderValid);
+		const user = req.user;
+
+		if (!validBody) {
+			return next(new Error(`${500}:${"Validate data fail"}`));
+		}
+
+		const find = await findUserByUserID(user.userID);
+
+		if (!find || !find.active) {
+			return next(new Error(`${500}:${"Cannot find user"}`));
+		}
+
+		if (find.role != "admin") {
+			return next(new Error(`${500}:${"Permisson denied"}`));
+		}
+
+		const request = await findRequestOrder(validBody.id);
+
+		if (!request) {
+			return next(new Error(`${500}:${"Cannot find request order"}`));
+		}
+
+		if (request.status == "end") {
+			return next(new Error(`${500}:${"Cannot update request status is end"}`));
+		}
+
+		switch (validBody.isPaid) {
+			case "unpaid": {
+				break;
+			}
+			case "deposited": {
+				break;
+			}
+			case "paid": {
+				break;
+			}
+			default: {
+				return next(new Error(`${500}:${`Status unknown`}`));
+			}
+		}
+
+		var update = await changeStatusPaidRequestOrder(validBody.id, validBody.isPaid);
+
+		if (!update) {
+			return next(new Error(`${500}:${"Update status request order fail cannot update db"}`));
+		}
+
+		await sendHistory(
+			`${user.name} vừa chỉnh sửa trạng thái thanh toán một yêu cầu đặt tiệc của khách hàng tên ${request.userName} thành ${validBody.status}`,
+			user.userID,
+			request,
+		);
+
+		await sendNotifi(
+			`Admin ${user.name} đã update trạng thái thanh toán cho yêu cầu đặt tiệc của bạn thành ${validBody.isPaid} ID tiệc:${request.id}. `,
+			request.userID,
+			request,
+		);
+
+		return res.send({
+			status: true,
+		});
+	} catch (e: any) {
+		return next(new Error(`${500}:${e.message}`));
+	}
+};
+
+const getRequestOrder = async (req: Request, res: Response, next: NextFunction) => {
+	try {
+		var { id } = req.query;
+
+		const request = await findRequestOrderFullObject(Number(id));
+
+		for (var i = 0; i < request.length; i++) {
+			for (var j = 0; j < request[i].tableID.length; j++) {
+				for (var k = 0; k < request[i].tableID[j].listFood.length; k++) {
+					request[i].tableID[j].listFood[k] = await findFood(request[i].tableID[j].listFood[k]);
+				}
+			}
+		}
+
+		return res.send({
+			status: true,
+			data: request,
+		});
+	} catch (e: any) {
+		return next(new Error(`${500}:${e.message}`));
+	}
+};
+
+const getFullRequestOrder = async (req: Request, res: Response, next: NextFunction) => {
+	try {
+		const request = await findFullRequestOrderFullObject();
+
+		for (var i = 0; i < request.length; i++) {
+			for (var j = 0; j < request[i].tableID.length; j++) {
+				for (var k = 0; k < request[i].tableID[j].listFood.length; k++) {
+					request[i].tableID[j].listFood[k] = await findFood(request[i].tableID[j].listFood[k]);
+				}
+			}
+		}
+
+		return res.send({
+			status: true,
+			data: request,
+		});
+	} catch (e: any) {
+		return next(new Error(`${500}:${e.message}`));
+	}
+};
+
+const getFullRequestOrderByUserID = async (
+	req: Request | any,
+	res: Response,
+	next: NextFunction,
+) => {
+	try {
+		const user = req.user;
+		const request = await findFullRequestOrderFullObjectByUserID(user.userID);
+
+		for (var i = 0; i < request.length; i++) {
+			for (var j = 0; j < request[i].tableID.length; j++) {
+				for (var k = 0; k < request[i].tableID[j].listFood.length; k++) {
+					request[i].tableID[j].listFood[k] = await findFood(request[i].tableID[j].listFood[k]);
+				}
+			}
+		}
+
+		return res.send({
+			status: true,
+			data: request,
+		});
+	} catch (e: any) {
+		return next(new Error(`${500}:${e.message}`));
+	}
+};
+
+const getFullRequestOrderByHallID = async (
+	req: Request | any,
+	res: Response,
+	next: NextFunction,
+) => {
+	try {
+		var { hallID } = req.query;
+
+		const request = await findFullRequestOrderFullObjectByHallID(Number(hallID));
+
+		for (var i = 0; i < request.length; i++) {
+			for (var j = 0; j < request[i].tableID.length; j++) {
+				for (var k = 0; k < request[i].tableID[j].listFood.length; k++) {
+					request[i].tableID[j].listFood[k] = await findFood(request[i].tableID[j].listFood[k]);
+				}
+			}
+		}
+
+		return res.send({
+			status: true,
+			data: request,
+		});
+	} catch (e: any) {
+		return next(new Error(`${500}:${e.message}`));
+	}
+};
+
 export {
 	addFood,
 	updateFood,
@@ -698,4 +1140,12 @@ export {
 	getFullHall,
 	getFullTableOfHall,
 	getFullGroupFood,
+	addRequestOrder,
+	updateRequestOrder,
+	updateStatusRequestOrder,
+	updateStatusPaid,
+	getRequestOrder,
+	getFullRequestOrder,
+	getFullRequestOrderByUserID,
+	getFullRequestOrderByHallID,
 };

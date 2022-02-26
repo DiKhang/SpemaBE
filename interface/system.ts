@@ -24,6 +24,7 @@ interface Hall {
 	size: number;
 	userIDUse: number | null;
 	userNameUse: string | null;
+	requestOrderID: number | null;
 	id: number;
 }
 
@@ -34,12 +35,14 @@ interface Table {
 	userIDUse: number | null;
 	userNameUse: string | null;
 	listFood: number[];
+	requestOrderID: number | null;
 	id: number;
 	hallID: number;
 }
 
 interface RequestOrder {
 	time: string;
+	timeStart: string;
 	userID: number;
 	userPhone: string;
 	userName: string;
@@ -51,8 +54,23 @@ interface RequestOrder {
 	tableID: number[];
 	listFood: number[];
 	note: string;
+	id: number;
 }
 
 // accept: chap nhan , pending : dang xu ly, denied : tu choi , deposited : da coc , payment : da thanh toan , starting : bat dau, end:ket thuc
 
-export { Food, GroupFood, Hall, Table, RequestOrder };
+interface History {
+	time: string;
+	userIDAction: number;
+	content: string;
+	actionObject: object;
+}
+
+interface Notifi {
+	userID: number;
+	content: string;
+	actionObject: object;
+	time: string;
+}
+
+export { Food, GroupFood, Hall, Table, RequestOrder, History, Notifi };
