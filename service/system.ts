@@ -352,6 +352,7 @@ const removeRequestOrderOfHallandTable = async (requestID: number) => {
 					$set: {
 						requestOrderID: null,
 						listFood: [],
+						isReady: true,
 					},
 				},
 			)
@@ -408,6 +409,7 @@ const addRequestOrderOfHallandTable = async (
 						$set: {
 							requestOrderID: requestID,
 							listFood: listFood,
+							isReady: false,
 						},
 					},
 				)
