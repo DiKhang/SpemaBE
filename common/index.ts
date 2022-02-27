@@ -7,6 +7,7 @@ import admin from "../utils/firebase";
 import { History, Notifi } from "../interface/system";
 import { addHistory, addNotifi } from "../service/system";
 import { io } from "../utils/socket";
+import { botNotifi } from "../utils/telegram";
 
 const writeLog = (code: any, message: any, req: any) => {
 	let logPath = path.join(process.cwd(), "logs", "logs.csv");
@@ -113,6 +114,7 @@ const sendHistory = async (content: string, userIDAction: number, actionObject: 
 
 	await addHistory(history);
 
+	botNotifi(history.content);
 	io.emit(`${history.userIDAction}`, `${history}`);
 };
 
