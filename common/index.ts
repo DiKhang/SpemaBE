@@ -132,7 +132,7 @@ const sendNotifi = async (content: string, userID: number, actionObject: object)
 
 	sendNotiMail(
 		find.username,
-		`Xin chào anh/chị ${find.username},\nChúng tôi xin thông báo về tình trạng đơn hàng của bạn. \n${content}.\nQuý khách vui lòng theo dổi thông tin đơn hàng.Mọi chi tết xin liên hệ dikhang4study@gmail.com`,
+		`Xin chào anh/chị ${find.name},\nChúng tôi xin thông báo về tình trạng đơn hàng của bạn. \n${content}.\nQuý khách vui lòng theo dổi thông tin đơn hàng.Mọi chi tết xin liên hệ dikhang4study@gmail.com`,
 	);
 
 	await addNotifi(notifi);
