@@ -43,6 +43,7 @@ interface Table {
 interface RequestOrder {
 	time: string;
 	timeStart: string;
+	endTime: string;
 	userID: number;
 	userPhone: string;
 	userName: string;

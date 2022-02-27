@@ -701,20 +701,15 @@ const getFullHall = async (req: Request | any, res: Response, next: NextFunction
 
 const getFullTableOfHall = async (req: Request | any, res: Response, next: NextFunction) => {
 	try {
-		const body = req.body;
-		const validBody = validate(body, getFullTableOfHallValid);
+		const { id } = req.query;
 
-		if (!validBody) {
-			return next(new Error(`${500}:${"Validate data fail"}`));
-		}
-
-		const findH = await findHall(validBody.id);
+		const findH = await findHall(Number(id));
 
 		if (!findH) {
 			return next(new Error(`${500}:${"Cannot find table"}`));
 		}
 
-		const find = await getFullTableByHallID(validBody.id);
+		const find = await getFullTableByHallID(Number(id));
 
 		return res.send({
 			status: true,
@@ -742,6 +737,8 @@ const addRequestOrder = async (req: Request | any, res: Response, next: NextFunc
 		}
 
 		const allRequest = await findAllRequestOrder();
+		var endTime = new Date(validBody.timeStart);
+		endTime.setHours(endTime.getHours() + 5);
 
 		const request: RequestOrder = {
 			hallID: validBody.hallID,
@@ -758,6 +755,7 @@ const addRequestOrder = async (req: Request | any, res: Response, next: NextFunc
 			userName: user.name,
 			userPhone: user.phone,
 			id: allRequest.length + 1,
+			endTime: getISOStringDate(endTime),
 		};
 
 		const add = await insertRequestOrder(request);
@@ -809,6 +807,9 @@ const updateRequestOrder = async (req: Request | any, res: Response, next: NextF
 			return next(new Error(`${500}:${"Cannot update request after accept "}`));
 		}
 
+		var endTime = new Date(validBody.timeStart);
+		endTime.setHours(endTime.getHours() + 5);
+
 		const request: RequestOrder = {
 			hallID: validBody.hallID,
 			totalMoney: validBody.totalMoney,
@@ -824,6 +825,7 @@ const updateRequestOrder = async (req: Request | any, res: Response, next: NextF
 			userID: findRequest.userID,
 			userName: findRequest.userName,
 			userPhone: findRequest.userPhone,
+			endTime: getISOStringDate(endTime),
 		};
 
 		const update = await changeRequestOrder(validBody.id, request);
@@ -901,16 +903,16 @@ const updateStatusRequestOrder = async (req: Request | any, res: Response, next:
 				break;
 			}
 			case "starting": {
-				if (request.isPaid != "paid") {
-					return next(
-						new Error(`${500}:${"Cannot update status starting for party not full paid"}`),
-					);
+				if (request.isPaid == "unpaid") {
+					return next(new Error(`${500}:${"Cannot update status starting for party not paid"}`));
 				}
 				var handle = await addRequestOrderOfHallandTable(
 					request.hallID,
 					validBody.id,
 					request.listFood,
 					request.tableID,
+					request.userID,
+					request.userName,
 				);
 				if (!handle) {
 					return next(new Error(`${500}:${"Update status request order fail cannot update db"}`));

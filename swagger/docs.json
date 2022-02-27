@@ -737,7 +737,16 @@
         "produces": [
           "application/json"
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
+            "description": ""
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -1202,8 +1211,8 @@
       "title": "LoginRequest",
       "example": {
         "username": "nguyenduykhuongtqtpy@gmail.com",
-        "password": "123",
-        "refreshToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjE3M2VhYjhiYzAxOGI1MzJmOWM4OWIiLCJhY3RpdmUiOnRydWUsImJpcnRoRGF5IjoiMTcvNy8yMDIwIiwiYWN0aXZlQXQiOiIyMDIyLTAzLTAzVDA4OjIzOjE4Ljg0OVoiLCJjcmVhdGVBdCI6IjIwMjItMDMtMDNUMDg6MTU6MzUuODYzWiIsImNvZGUiOiIzNzg2OCIsIm5hbWUiOiJCYXJvbiBFRCIsInBob25lIjoiMDM4NTk5NDQxNSIsInJhbmsiOiJub3JtYWwiLCJ1c2VySUQiOjEsInVzZXJuYW1lIjoibmd1eWVuZHV5a2h1b25ndHF0cHlAZ21haWwuY29tIiwiZXhwIjoxNjQ1ODY0OTQwLCJpYXQiOjE2NDU2OTIxNDB9.RMVH2Q-U2W7fBNZt-hmTTFxlvAjkEgUHvzOQtHbDOv6WchLGjlThySSWexvrrjLptLxo6dpR1g7Mvg-UsWw5EH4iDMns9iB7YxkbxtHviGWdjm0PrsTvDNSg8QAfroCq2-HjLZopRS9ohs57VRJ7PpIfMN6FV_hR0-droS8tik4"
+        "password": "",
+        "refreshToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjE3M2VhYjhiYzAxOGI1MzJmOWM4OWIiLCJhY3RpdmUiOnRydWUsImJpcnRoRGF5IjoiMTcvNy8yMDIwIiwiYWN0aXZlQXQiOiIyMDIyLTAzLTAzVDA4OjIzOjE4Ljg0OVoiLCJjcmVhdGVBdCI6IjIwMjItMDMtMDNUMDg6MTU6MzUuODYzWiIsIm5hbWUiOiJCYXJvbiIsInBob25lIjoiMDM4NTk5NDQxNSIsInJhbmsiOiJub3JtYWwiLCJ1c2VySUQiOjEsInVzZXJuYW1lIjoibmd1eWVuZHV5a2h1b25ndHF0cHlAZ21haWwuY29tIiwiZ2VuZGVyIjoibWFsZSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTY0NjA5OTY4NywiaWF0IjoxNjQ1OTI2ODg3fQ.U6k4LlCqN-yiOeF3Me9ZZ571y7lQmtIpCkwEaLEDPkYBhwBS9di6imjK-pI4W7C2mvl30m5sgTlIgIt3z1C1BOb4fH2ZBNlM-bVYuEz-6WCcJ_7D_5IyX-HdpGS9paA9yL37cVmRApjYM98ln3eG4uB1NDyOjhqdrpOJYrZOnnM"
       },
       "type": "object",
       "properties": {
@@ -1772,7 +1781,7 @@
     "UpdateStatusRequestOrderRequest": {
       "title": "UpdateStatusRequestOrderRequest",
       "example": {
-        "id": 1,
+        "id": 2,
         "status": "end"
       },
       "type": "object",
@@ -1793,7 +1802,7 @@
     "UpdateStatusPaidRequest": {
       "title": "UpdateStatusPaidRequest",
       "example": {
-        "id": 1,
+        "id": 2,
         "isPaid": "paid"
       },
       "type": "object",

@@ -332,6 +332,8 @@ const removeRequestOrderOfHallandTable = async (requestID: number) => {
 					$set: {
 						requestOrderID: null,
 						isReady: false,
+						userIDUse: null,
+						userNameUse: null,
 					},
 				},
 			)
@@ -354,6 +356,8 @@ const removeRequestOrderOfHallandTable = async (requestID: number) => {
 						requestOrderID: null,
 						listFood: [],
 						isReady: true,
+						userIDUse: null,
+						userNameUse: null,
 					},
 				},
 			)
@@ -376,6 +380,8 @@ const addRequestOrderOfHallandTable = async (
 	requestID: number,
 	listFood: number[],
 	tableID: number[],
+	userIDUse: number,
+	userNameUse: string,
 ) => {
 	try {
 		var update: boolean = true;
@@ -389,6 +395,8 @@ const addRequestOrderOfHallandTable = async (
 					$set: {
 						requestOrderID: requestID,
 						isReady: false,
+						userIDUse: userIDUse,
+						userNameUse: userNameUse,
 					},
 				},
 			)
@@ -412,6 +420,8 @@ const addRequestOrderOfHallandTable = async (
 							requestOrderID: requestID,
 							listFood: listFood,
 							isReady: false,
+							userIDUse: userIDUse,
+							userNameUse: userNameUse,
 						},
 					},
 				)
