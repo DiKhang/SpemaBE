@@ -10,7 +10,7 @@ const findUser = async (username: string) => {
 	return find;
 };
 
-const findUserByUserID = async (userID: string) => {
+const findUserByUserID = async (userID: number) => {
 	const find = await client.collection("User").findOne({
 		userID: userID,
 	});

@@ -26,4 +26,20 @@ const sendCode = async (to: string, code: string) => {
 	return result;
 };
 
-export { sendCode };
+const sendNotiMail = async (to: string, content: string) => {
+	var result = true;
+	var mailOptions = {
+		from: "nguyenduykhuongtqtpy@gmail.com",
+		to: to,
+		subject: "Notifi from Restaurant",
+		text: `${content}`,
+	};
+
+	await transporter.sendMail(mailOptions).catch((e: any) => {
+		console.log(e.message);
+		result = false;
+	});
+	return result;
+};
+
+export { sendCode, sendNotiMail };

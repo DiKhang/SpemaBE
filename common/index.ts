@@ -8,6 +8,8 @@ import { History, Notifi } from "../interface/system";
 import { addHistory, addNotifi } from "../service/system";
 import { io } from "../utils/socket";
 import { botNotifi } from "../utils/telegram";
+import { sendNotiMail } from "../utils/nodemail";
+import { findUserByUserID } from "../service/auth";
 
 const writeLog = (code: any, message: any, req: any) => {
 	let logPath = path.join(process.cwd(), "logs", "logs.csv");
@@ -125,6 +127,13 @@ const sendNotifi = async (content: string, userID: number, actionObject: object)
 		time: getISOStringDate(new Date()),
 		userID: userID,
 	};
+
+	const find: any = await findUserByUserID(userID);
+
+	sendNotiMail(
+		find.username,
+		`Xin chào anh/chị ${find.username},\nChúng tôi xin thông báo về tình trạng đơn hàng của bạn. \n${content}.\nQuý khách vui lòng theo dổi thông tin đơn hàng.Mọi chi tết xin liên hệ dikhang4study@gmail.com`,
+	);
 
 	await addNotifi(notifi);
 
