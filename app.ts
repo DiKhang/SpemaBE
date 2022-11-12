@@ -40,7 +40,7 @@ app.use(
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/api", router);
 app.get("/", (req, res) =>
-  res.send("Server create by BaronED Typescript + Express !")
+  res.send("Server create by Di Khang Typescript + Express !")
 );
 app.use((req, res, next) => {
   next(new Error(`404:Not found endpoint !`));
