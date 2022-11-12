@@ -15,6 +15,7 @@ const auth_1 = require("../../service/auth");
 const jwt_1 = require("../../utils/jwt");
 const nodemail_1 = require("../../utils/nodemail");
 const auth_2 = require("../../validate/auth");
+const uuid_1 = require("uuid");
 const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         var body = req.body;
@@ -28,8 +29,6 @@ const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
         if (find) {
             return next(new Error(`${500}:${`Username has exist !`}`));
         }
-        //get All user
-        const allUser = yield (0, auth_1.getAllUser)();
         //generate code active
         const code = (0, common_1.generateCode)();
         //send code to mail
@@ -46,11 +45,10 @@ const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
             code: code,
             name: validBody.name,
             password: yield (0, common_1.hashPass)(validBody.password),
-            phone: validBody.phone,
             gender: validBody.gender,
-            rank: "normal",
-            userID: allUser.length + 1,
+            userID: (0, uuid_1.v4)(),
             username: validBody.username,
+            jobName: validBody.jobName,
             role: "user",
         };
         //insert user
@@ -62,6 +60,7 @@ const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
         else {
             return next(new Error(`${500}:${`Add user fail, insert user error .`}`));
         }
+        delete user.password;
         //send user object
         return res.send({
             status: true,
@@ -142,7 +141,7 @@ const active = (req, res, next) => __awaiter(void 0, void 0, void 0, function* (
         delete find.password;
         return res.send({
             status: true,
-            data: find,
+            data: Object.assign(Object.assign({}, find), { active: true }),
         });
     }
     catch (e) {

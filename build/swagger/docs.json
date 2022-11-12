@@ -1,0 +1,926 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "Restaurant API",
+    "contact": {}
+  },
+  "host": "localhost:3000",
+  "basePath": "/api/v1",
+  "securityDefinitions": {},
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "summary": "Register",
+        "tags": ["Misc"],
+        "operationId": "Register",
+        "deprecated": false,
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/RegisterRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/auth/sendcode": {
+      "post": {
+        "summary": "Send Code",
+        "tags": ["Misc"],
+        "operationId": "SendCode",
+        "deprecated": false,
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/SendCodeRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/auth/active": {
+      "post": {
+        "summary": "Active",
+        "tags": ["Misc"],
+        "operationId": "Active",
+        "deprecated": false,
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ActiveRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "Login",
+        "tags": ["Misc"],
+        "operationId": "Login",
+        "deprecated": false,
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/LoginRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "get": {
+        "summary": "Get User",
+        "tags": ["Misc"],
+        "operationId": "GetUser",
+        "deprecated": false,
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "jwt",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/auth/forgotpass": {
+      "post": {
+        "summary": "ForgotPass",
+        "tags": ["Misc"],
+        "operationId": "ForgotPass",
+        "deprecated": false,
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ForgotPassRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/auth/updateprofile": {
+      "post": {
+        "summary": "Update Profile",
+        "tags": ["Misc"],
+        "operationId": "UpdateProfile",
+        "deprecated": false,
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "jwt",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/UpdateProfileRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/auth/changepass": {
+      "post": {
+        "summary": "Change Password",
+        "tags": ["Misc"],
+        "operationId": "ChangePassword",
+        "deprecated": false,
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "jwt",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ChangePasswordRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/auth/manager": {
+      "post": {
+        "summary": "Manager Account",
+        "tags": ["Misc"],
+        "operationId": "ManagerAccount",
+        "deprecated": false,
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "jwt",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ManagerAccountRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/auth/getfulluser": {
+      "get": {
+        "summary": "Get Full User",
+        "tags": ["Misc"],
+        "operationId": "GetFullUser",
+        "deprecated": false,
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "jwt",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/uploadfile": {
+      "post": {
+        "summary": "Upload File",
+        "tags": ["Misc"],
+        "operationId": "UploadFile",
+        "deprecated": false,
+        "produces": ["application/json"],
+        "consumes": ["application/x-www-form-urlencoded"],
+        "parameters": [
+          {
+            "name": "jwt",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "filename",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "RegisterRequest": {
+      "title": "RegisterRequest",
+      "example": {
+        "username": "nguyenduykhuongtqtpy@gmail.com",
+        "password": "123123",
+        "name": "Baron ED",
+        "birthDay": "17/7/2020",
+        "phone": "0385994415",
+        "gender": "male"
+      },
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "birthDay": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "username",
+        "password",
+        "name",
+        "birthDay",
+        "phone",
+        "gender"
+      ]
+    },
+    "SendCodeRequest": {
+      "title": "SendCodeRequest",
+      "example": {
+        "username": "nguyenduykhuongtqtpy@gmail.com"
+      },
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        }
+      },
+      "required": ["username"]
+    },
+    "ActiveRequest": {
+      "title": "ActiveRequest",
+      "example": {
+        "username": "nguyenduykhuongtqtpy@gmail.com",
+        "code": "37868"
+      },
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        }
+      },
+      "required": ["username", "code"]
+    },
+    "LoginRequest": {
+      "title": "LoginRequest",
+      "example": {
+        "username": "nguyenduykhuongtqtpy@gmail.com",
+        "password": "",
+        "refreshToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjE3M2VhYjhiYzAxOGI1MzJmOWM4OWIiLCJhY3RpdmUiOnRydWUsImJpcnRoRGF5IjoiMTcvNy8yMDIwIiwiYWN0aXZlQXQiOiIyMDIyLTAzLTAzVDA4OjIzOjE4Ljg0OVoiLCJjcmVhdGVBdCI6IjIwMjItMDMtMDNUMDg6MTU6MzUuODYzWiIsIm5hbWUiOiJCYXJvbiIsInBob25lIjoiMDM4NTk5NDQxNSIsInJhbmsiOiJub3JtYWwiLCJ1c2VySUQiOjEsInVzZXJuYW1lIjoibmd1eWVuZHV5a2h1b25ndHF0cHlAZ21haWwuY29tIiwiZ2VuZGVyIjoibWFsZSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTY0NjA5OTY4NywiaWF0IjoxNjQ1OTI2ODg3fQ.U6k4LlCqN-yiOeF3Me9ZZ571y7lQmtIpCkwEaLEDPkYBhwBS9di6imjK-pI4W7C2mvl30m5sgTlIgIt3z1C1BOb4fH2ZBNlM-bVYuEz-6WCcJ_7D_5IyX-HdpGS9paA9yL37cVmRApjYM98ln3eG4uB1NDyOjhqdrpOJYrZOnnM"
+      },
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "refreshToken": {
+          "type": "string"
+        }
+      },
+      "required": ["username", "password", "refreshToken"]
+    },
+    "ForgotPassRequest": {
+      "title": "ForgotPassRequest",
+      "example": {
+        "username": "nguyenduykhuongtqtpy@gmail.com",
+        "password": "123",
+        "code": "81052"
+      },
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        }
+      },
+      "required": ["username", "password", "code"]
+    },
+    "UpdateProfileRequest": {
+      "title": "UpdateProfileRequest",
+      "example": {
+        "name": "Baron",
+        "gender": "male",
+        "birthDay": "",
+        "phone": "0385994415"
+      },
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "birthDay": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        }
+      },
+      "required": ["name", "gender", "birthDay", "phone"]
+    },
+    "ChangePasswordRequest": {
+      "title": "ChangePasswordRequest",
+      "example": {
+        "password": "123",
+        "newPassword": "123123"
+      },
+      "type": "object",
+      "properties": {
+        "password": {
+          "type": "string"
+        },
+        "newPassword": {
+          "type": "string"
+        }
+      },
+      "required": ["password", "newPassword"]
+    },
+    "ManagerAccountRequest": {
+      "title": "ManagerAccountRequest",
+      "example": {
+        "userID": 1,
+        "active": true
+      },
+      "type": "object",
+      "properties": {
+        "userID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "active": {
+          "type": "boolean"
+        }
+      },
+      "required": ["userID", "active"]
+    },
+    "AddFoodRequest": {
+      "title": "AddFoodRequest",
+      "example": {
+        "name": "Chitken 2",
+        "category": "middle",
+        "price": 10000,
+        "img": "",
+        "decription": ""
+      },
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "img": {
+          "type": "string"
+        },
+        "decription": {
+          "type": "string"
+        }
+      },
+      "required": ["name", "category", "price", "img", "decription"]
+    },
+    "UpdateFoodRequest": {
+      "title": "UpdateFoodRequest",
+      "example": {
+        "name": "Chitken",
+        "category": "middle",
+        "price": 10000,
+        "img": "",
+        "id": 3,
+        "decription": ""
+      },
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "img": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "decription": {
+          "type": "string"
+        }
+      },
+      "required": ["name", "category", "price", "img", "id", "decription"]
+    },
+    "RemoveFoodRequest": {
+      "title": "RemoveFoodRequest",
+      "example": {
+        "id": 1
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "required": ["id"]
+    },
+    "AddGroupFoodRequest": {
+      "title": "AddGroupFoodRequest",
+      "example": {
+        "name": "Morning",
+        "listFood": [1, 2],
+        "decription": ""
+      },
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "listFood": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "decription": {
+          "type": "string"
+        }
+      },
+      "required": ["name", "listFood", "decription"]
+    },
+    "UpdateGroupFoodRequest": {
+      "title": "UpdateGroupFoodRequest",
+      "example": {
+        "name": "Morning",
+        "listFood": [1, 2],
+        "decription": "",
+        "id": 1
+      },
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "listFood": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "decription": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "required": ["name", "listFood", "decription", "id"]
+    },
+    "RemoveGroupFoodRequest": {
+      "title": "RemoveGroupFoodRequest",
+      "example": {
+        "id": 1
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "required": ["id"]
+    },
+    "AddTableRequest": {
+      "title": "AddTableRequest",
+      "example": {
+        "hallID": 1,
+        "name": "CB1",
+        "sizeOnTable": 10
+      },
+      "type": "object",
+      "properties": {
+        "hallID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "type": "string"
+        },
+        "sizeOnTable": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "required": ["hallID", "name", "sizeOnTable"]
+    },
+    "RemoveTableRequest": {
+      "title": "RemoveTableRequest",
+      "example": {
+        "id": 1
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "required": ["id"]
+    },
+    "AddHallRequest": {
+      "title": "AddHallRequest",
+      "example": {
+        "name": "Vincom Normal 2",
+        "size": 20,
+        "type": "normal"
+      },
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": ["name", "size", "type"]
+    },
+    "RemoveHallRequest": {
+      "title": "RemoveHallRequest",
+      "example": {
+        "id": 1
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "required": ["id"]
+    },
+    "UpdateTableRequest": {
+      "title": "UpdateTableRequest",
+      "example": {
+        "id": 1,
+        "name": "CB11",
+        "sizeOnTable": 1
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "type": "string"
+        },
+        "sizeOnTable": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "required": ["id", "name", "sizeOnTable"]
+    },
+    "UpdateHallRequest": {
+      "title": "UpdateHallRequest",
+      "example": {
+        "id": 1,
+        "name": "Vincom2",
+        "type": "Gold",
+        "size": 32
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "required": ["id", "name", "type", "size"]
+    },
+    "AddRequestOrderRequest": {
+      "title": "AddRequestOrderRequest",
+      "example": {
+        "hallID": 1,
+        "type": "single",
+        "totalMoney": 20000,
+        "tableID": [1],
+        "listFood": [1, 2],
+        "note": "Không dưa leo",
+        "timeStart": "17/7/2000"
+      },
+      "type": "object",
+      "properties": {
+        "hallID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "string"
+        },
+        "totalMoney": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "tableID": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "listFood": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "note": {
+          "type": "string"
+        },
+        "timeStart": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "hallID",
+        "type",
+        "totalMoney",
+        "tableID",
+        "listFood",
+        "note",
+        "timeStart"
+      ]
+    },
+    "UpdateRequestOrderRequest": {
+      "title": "UpdateRequestOrderRequest",
+      "example": {
+        "hallID": 1,
+        "type": "party",
+        "totalMoney": 20000,
+        "tableID": [1],
+        "listFood": [1, 2],
+        "note": "Không dưa leo",
+        "timeStart": "17/7/2000",
+        "id": 1
+      },
+      "type": "object",
+      "properties": {
+        "hallID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "string"
+        },
+        "totalMoney": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "tableID": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "listFood": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "note": {
+          "type": "string"
+        },
+        "timeStart": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "required": [
+        "hallID",
+        "type",
+        "totalMoney",
+        "tableID",
+        "listFood",
+        "note",
+        "timeStart",
+        "id"
+      ]
+    },
+    "UpdateStatusRequestOrderRequest": {
+      "title": "UpdateStatusRequestOrderRequest",
+      "example": {
+        "id": 2,
+        "status": "end"
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "required": ["id", "status"]
+    },
+    "UpdateStatusPaidRequest": {
+      "title": "UpdateStatusPaidRequest",
+      "example": {
+        "id": 2,
+        "isPaid": "paid"
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "isPaid": {
+          "type": "string"
+        }
+      },
+      "required": ["id", "isPaid"]
+    }
+  },
+  "tags": [
+    {
+      "name": "Misc",
+      "description": ""
+    }
+  ]
+}

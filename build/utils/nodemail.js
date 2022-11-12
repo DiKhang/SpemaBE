@@ -18,8 +18,8 @@ const nodemailer_1 = __importDefault(require("nodemailer"));
 var transporter = nodemailer_1.default.createTransport({
     service: "gmail",
     auth: {
-        user: "nguyenduykhuongtqtpy@gmail.com",
-        pass: "iizdcwwlvdcoztun",
+        user: "dikhang4study@gmail.com",
+        pass: "acjojxiafsrzzmsk", //geaaggaplmofygev
     },
 });
 const sendCode = (to, code) => __awaiter(void 0, void 0, void 0, function* () {

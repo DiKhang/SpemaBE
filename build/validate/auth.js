@@ -26,13 +26,12 @@ exports.registerValid = [
         isRequire: true,
     },
     {
-        name: "phone",
+        name: "gender",
         type: "string",
         isRequire: true,
-        regExp: regex_1.phoneValid,
     },
     {
-        name: "gender",
+        name: "jobName",
         type: "string",
         isRequire: true,
     },
