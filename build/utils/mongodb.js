@@ -7,7 +7,6 @@ const client = new mongodb_1.MongoClient(uri, {
     serverApi: mongodb_1.ServerApiVersion.v1,
 });
 client.connect((err) => {
-    const collection = client.db("test").collection("devices");
     // perform actions on the collection object
     if (!err) {
         console.log("Connect Mongo Done !");

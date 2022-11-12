@@ -8,27 +8,17 @@
   "host": "localhost:3000",
   "basePath": "/api/v1",
   "securityDefinitions": {},
-  "schemes": [
-    "http"
-  ],
-  "consumes": [
-    "application/json"
-  ],
-  "produces": [
-    "application/json"
-  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
   "paths": {
     "/auth/register": {
       "post": {
         "summary": "Register",
-        "tags": [
-          "Misc"
-        ],
+        "tags": ["Misc"],
         "operationId": "Register",
         "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "name": "Body",
@@ -51,14 +41,10 @@
     "/auth/sendcode": {
       "post": {
         "summary": "Send Code",
-        "tags": [
-          "Misc"
-        ],
+        "tags": ["Misc"],
         "operationId": "SendCode",
         "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "name": "Body",
@@ -81,14 +67,10 @@
     "/auth/active": {
       "post": {
         "summary": "Active",
-        "tags": [
-          "Misc"
-        ],
+        "tags": ["Misc"],
         "operationId": "Active",
         "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "name": "Body",
@@ -111,14 +93,10 @@
     "/auth/login": {
       "post": {
         "summary": "Login",
-        "tags": [
-          "Misc"
-        ],
+        "tags": ["Misc"],
         "operationId": "Login",
         "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "name": "Body",
@@ -139,14 +117,10 @@
       },
       "get": {
         "summary": "Get User",
-        "tags": [
-          "Misc"
-        ],
+        "tags": ["Misc"],
         "operationId": "GetUser",
         "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "name": "jwt",
@@ -167,14 +141,10 @@
     "/auth/forgotpass": {
       "post": {
         "summary": "ForgotPass",
-        "tags": [
-          "Misc"
-        ],
+        "tags": ["Misc"],
         "operationId": "ForgotPass",
         "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "name": "Body",
@@ -197,14 +167,10 @@
     "/auth/updateprofile": {
       "post": {
         "summary": "Update Profile",
-        "tags": [
-          "Misc"
-        ],
+        "tags": ["Misc"],
         "operationId": "UpdateProfile",
         "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "name": "jwt",
@@ -234,14 +200,10 @@
     "/auth/changepass": {
       "post": {
         "summary": "Change Password",
-        "tags": [
-          "Misc"
-        ],
+        "tags": ["Misc"],
         "operationId": "ChangePassword",
         "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "name": "jwt",
@@ -271,14 +233,10 @@
     "/auth/manager": {
       "post": {
         "summary": "Manager Account",
-        "tags": [
-          "Misc"
-        ],
+        "tags": ["Misc"],
         "operationId": "ManagerAccount",
         "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "name": "jwt",
@@ -308,14 +266,10 @@
     "/auth/getfulluser": {
       "get": {
         "summary": "Get Full User",
-        "tags": [
-          "Misc"
-        ],
+        "tags": ["Misc"],
         "operationId": "GetFullUser",
         "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "name": "jwt",
@@ -336,17 +290,11 @@
     "/uploadfile": {
       "post": {
         "summary": "Upload File",
-        "tags": [
-          "Misc"
-        ],
+        "tags": ["Misc"],
         "operationId": "UploadFile",
         "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded"
-        ],
+        "produces": ["application/json"],
+        "consumes": ["application/x-www-form-urlencoded"],
         "parameters": [
           {
             "name": "jwt",
@@ -360,765 +308,6 @@
             "in": "formData",
             "required": true,
             "type": "string",
-            "description": ""
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      }
-    },
-    "/system/food": {
-      "put": {
-        "summary": "Add Food",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "AddFood",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "jwt",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "Body",
-            "in": "body",
-            "required": true,
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/AddFoodRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      },
-      "post": {
-        "summary": "Update Food",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "UpdateFood",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "jwt",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "Body",
-            "in": "body",
-            "required": true,
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/UpdateFoodRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      },
-      "delete": {
-        "summary": "Remove Food",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "RemoveFood",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "jwt",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "Body",
-            "in": "body",
-            "required": true,
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/RemoveFoodRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      },
-      "get": {
-        "summary": "Get Menu",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "GetMenu",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      }
-    },
-    "/system/groupfood": {
-      "put": {
-        "summary": "Add Group Food",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "AddGroupFood",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "jwt",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "Body",
-            "in": "body",
-            "required": true,
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/AddGroupFoodRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      },
-      "post": {
-        "summary": "Update Group Food",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "UpdateGroupFood",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "jwt",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "Body",
-            "in": "body",
-            "required": true,
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/UpdateGroupFoodRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      },
-      "delete": {
-        "summary": "Remove Group Food",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "RemoveGroupFood",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "jwt",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "Body",
-            "in": "body",
-            "required": true,
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/RemoveGroupFoodRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      },
-      "get": {
-        "summary": "Get Full Group Food",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "GetFullGroupFood",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      }
-    },
-    "/system/table": {
-      "put": {
-        "summary": "Add Table",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "AddTable",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "jwt",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "Body",
-            "in": "body",
-            "required": true,
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/AddTableRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      },
-      "delete": {
-        "summary": "Remove Table",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "RemoveTable",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "jwt",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "Body",
-            "in": "body",
-            "required": true,
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/RemoveTableRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      },
-      "post": {
-        "summary": "Update Table",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "UpdateTable",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "jwt",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "Body",
-            "in": "body",
-            "required": true,
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/UpdateTableRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      },
-      "get": {
-        "summary": "Get Full Table By Hall ID",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "GetFullTableByHallID",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "query",
-            "required": true,
-            "type": "integer",
-            "format": "int32",
-            "description": ""
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      }
-    },
-    "/system/hall": {
-      "put": {
-        "summary": "Add Hall",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "AddHall",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "jwt",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "Body",
-            "in": "body",
-            "required": true,
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/AddHallRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      },
-      "delete": {
-        "summary": "Remove Hall",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "RemoveHall",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "jwt",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "Body",
-            "in": "body",
-            "required": true,
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/RemoveHallRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      },
-      "post": {
-        "summary": "Update Hall",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "UpdateHall",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "jwt",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "Body",
-            "in": "body",
-            "required": true,
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/UpdateHallRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      },
-      "get": {
-        "summary": "Get All Hall",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "GetAllHall",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      }
-    },
-    "/system/requestorder": {
-      "put": {
-        "summary": "Add Request Order",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "AddRequestOrder",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "jwt",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "Body",
-            "in": "body",
-            "required": true,
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/AddRequestOrderRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      },
-      "post": {
-        "summary": "Update Request Order",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "UpdateRequestOrder",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "jwt",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "Body",
-            "in": "body",
-            "required": true,
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/UpdateRequestOrderRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      },
-      "get": {
-        "summary": "Get Request Order by ID",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "GetRequestOrderbyID",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "query",
-            "required": true,
-            "type": "integer",
-            "format": "int32",
-            "description": ""
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      }
-    },
-    "/system/updatestatusrequestorder": {
-      "post": {
-        "summary": "Update Status Request Order",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "UpdateStatusRequestOrder",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "jwt",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "Body",
-            "in": "body",
-            "required": true,
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/UpdateStatusRequestOrderRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      }
-    },
-    "/system/updatestatuspaid": {
-      "post": {
-        "summary": "Update Status Paid",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "UpdateStatusPaid",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "jwt",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "Body",
-            "in": "body",
-            "required": true,
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/UpdateStatusPaidRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      }
-    },
-    "/system/allrequestorder": {
-      "get": {
-        "summary": "Get All Request Order",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "GetAllRequestOrder",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      }
-    },
-    "/system/requestorderbyuserid": {
-      "get": {
-        "summary": "Get Full Request Order By UserID",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "GetFullRequestOrderByUserID",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "jwt",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": ""
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      }
-    },
-    "/system/requestorderbyhallid": {
-      "get": {
-        "summary": "Get Full Request Order By Hall ID",
-        "tags": [
-          "Misc"
-        ],
-        "operationId": "GetFullRequestOrderByHallID",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "hallID",
-            "in": "query",
-            "required": true,
-            "type": "integer",
-            "format": "int32",
             "description": ""
           }
         ],
@@ -1183,9 +372,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "username"
-      ]
+      "required": ["username"]
     },
     "ActiveRequest": {
       "title": "ActiveRequest",
@@ -1202,10 +389,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "username",
-        "code"
-      ]
+      "required": ["username", "code"]
     },
     "LoginRequest": {
       "title": "LoginRequest",
@@ -1226,11 +410,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "username",
-        "password",
-        "refreshToken"
-      ]
+      "required": ["username", "password", "refreshToken"]
     },
     "ForgotPassRequest": {
       "title": "ForgotPassRequest",
@@ -1251,11 +431,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "username",
-        "password",
-        "code"
-      ]
+      "required": ["username", "password", "code"]
     },
     "UpdateProfileRequest": {
       "title": "UpdateProfileRequest",
@@ -1280,12 +456,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "name",
-        "gender",
-        "birthDay",
-        "phone"
-      ]
+      "required": ["name", "gender", "birthDay", "phone"]
     },
     "ChangePasswordRequest": {
       "title": "ChangePasswordRequest",
@@ -1302,10 +473,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "password",
-        "newPassword"
-      ]
+      "required": ["password", "newPassword"]
     },
     "ManagerAccountRequest": {
       "title": "ManagerAccountRequest",
@@ -1323,10 +491,7 @@
           "type": "boolean"
         }
       },
-      "required": [
-        "userID",
-        "active"
-      ]
+      "required": ["userID", "active"]
     },
     "AddFoodRequest": {
       "title": "AddFoodRequest",
@@ -1356,13 +521,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "name",
-        "category",
-        "price",
-        "img",
-        "decription"
-      ]
+      "required": ["name", "category", "price", "img", "decription"]
     },
     "UpdateFoodRequest": {
       "title": "UpdateFoodRequest",
@@ -1397,14 +556,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "name",
-        "category",
-        "price",
-        "img",
-        "id",
-        "decription"
-      ]
+      "required": ["name", "category", "price", "img", "id", "decription"]
     },
     "RemoveFoodRequest": {
       "title": "RemoveFoodRequest",
@@ -1418,18 +570,13 @@
           "format": "int32"
         }
       },
-      "required": [
-        "id"
-      ]
+      "required": ["id"]
     },
     "AddGroupFoodRequest": {
       "title": "AddGroupFoodRequest",
       "example": {
         "name": "Morning",
-        "listFood": [
-          1,
-          2
-        ],
+        "listFood": [1, 2],
         "decription": ""
       },
       "type": "object",
@@ -1448,20 +595,13 @@
           "type": "string"
         }
       },
-      "required": [
-        "name",
-        "listFood",
-        "decription"
-      ]
+      "required": ["name", "listFood", "decription"]
     },
     "UpdateGroupFoodRequest": {
       "title": "UpdateGroupFoodRequest",
       "example": {
         "name": "Morning",
-        "listFood": [
-          1,
-          2
-        ],
+        "listFood": [1, 2],
         "decription": "",
         "id": 1
       },
@@ -1485,12 +625,7 @@
           "format": "int32"
         }
       },
-      "required": [
-        "name",
-        "listFood",
-        "decription",
-        "id"
-      ]
+      "required": ["name", "listFood", "decription", "id"]
     },
     "RemoveGroupFoodRequest": {
       "title": "RemoveGroupFoodRequest",
@@ -1504,9 +639,7 @@
           "format": "int32"
         }
       },
-      "required": [
-        "id"
-      ]
+      "required": ["id"]
     },
     "AddTableRequest": {
       "title": "AddTableRequest",
@@ -1529,11 +662,7 @@
           "format": "int32"
         }
       },
-      "required": [
-        "hallID",
-        "name",
-        "sizeOnTable"
-      ]
+      "required": ["hallID", "name", "sizeOnTable"]
     },
     "RemoveTableRequest": {
       "title": "RemoveTableRequest",
@@ -1547,9 +676,7 @@
           "format": "int32"
         }
       },
-      "required": [
-        "id"
-      ]
+      "required": ["id"]
     },
     "AddHallRequest": {
       "title": "AddHallRequest",
@@ -1571,11 +698,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "name",
-        "size",
-        "type"
-      ]
+      "required": ["name", "size", "type"]
     },
     "RemoveHallRequest": {
       "title": "RemoveHallRequest",
@@ -1589,9 +712,7 @@
           "format": "int32"
         }
       },
-      "required": [
-        "id"
-      ]
+      "required": ["id"]
     },
     "UpdateTableRequest": {
       "title": "UpdateTableRequest",
@@ -1614,11 +735,7 @@
           "format": "int32"
         }
       },
-      "required": [
-        "id",
-        "name",
-        "sizeOnTable"
-      ]
+      "required": ["id", "name", "sizeOnTable"]
     },
     "UpdateHallRequest": {
       "title": "UpdateHallRequest",
@@ -1645,12 +762,7 @@
           "format": "int32"
         }
       },
-      "required": [
-        "id",
-        "name",
-        "type",
-        "size"
-      ]
+      "required": ["id", "name", "type", "size"]
     },
     "AddRequestOrderRequest": {
       "title": "AddRequestOrderRequest",
@@ -1658,13 +770,8 @@
         "hallID": 1,
         "type": "single",
         "totalMoney": 20000,
-        "tableID": [
-          1
-        ],
-        "listFood": [
-          1,
-          2
-        ],
+        "tableID": [1],
+        "listFood": [1, 2],
         "note": "Không dưa leo",
         "timeStart": "17/7/2000"
       },
@@ -1718,13 +825,8 @@
         "hallID": 1,
         "type": "party",
         "totalMoney": 20000,
-        "tableID": [
-          1
-        ],
-        "listFood": [
-          1,
-          2
-        ],
+        "tableID": [1],
+        "listFood": [1, 2],
         "note": "Không dưa leo",
         "timeStart": "17/7/2000",
         "id": 1
@@ -1794,10 +896,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "id",
-        "status"
-      ]
+      "required": ["id", "status"]
     },
     "UpdateStatusPaidRequest": {
       "title": "UpdateStatusPaidRequest",
@@ -1815,10 +914,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "id",
-        "isPaid"
-      ]
+      "required": ["id", "isPaid"]
     }
   },
   "tags": [

@@ -15,13 +15,13 @@ const app = express();
 var whiteList: string[] = [];
 
 var corsOptions = {
-	origin: function (origin: any, callback: any) {
-		if (whiteList.includes(origin)) {
-			callback(null, true);
-		} else {
-			callback(new Error("400:Not allowed by CORS"));
-		}
-	},
+  origin: function (origin: any, callback: any) {
+    if (whiteList.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("400:Not allowed by CORS"));
+    }
+  },
 }; // add cors in whiteList
 
 //config env
@@ -33,22 +33,24 @@ let swaggerFile = path.join(process.cwd(), "swagger", "docs.yaml");
 app.use("/uploads", express.static("uploads"));
 app.use(express.json());
 app.use(
-	cors({
-		origin: "*", //enable all cors
-	}),
+  cors({
+    origin: "*", //enable all cors
+  })
 );
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/api", router);
-app.get("/", (req, res) => res.send("Server create by BaronED Typescript + Express !"));
+app.get("/", (req, res) =>
+  res.send("Server create by BaronED Typescript + Express !")
+);
 app.use((req, res, next) => {
-	next(new Error(`404:Not found endpoint !`));
+  next(new Error(`404:Not found endpoint !`));
 });
 app.use((err: any, req: any, res: any, next: any) => {
-	var error = err.message;
-	var code = error.slice(0, error.indexOf(":"));
-	var message = error.slice(error.indexOf(":") + 1, error.length);
-	writeLog(code, message, req);
-	res.status(code).json(message);
+  var error = err.message;
+  var code = error.slice(0, error.indexOf(":"));
+  var message = error.slice(error.indexOf(":") + 1, error.length);
+  writeLog(code, message, req);
+  res.status(code).json(message);
 });
 
 export default app;

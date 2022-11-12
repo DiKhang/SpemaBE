@@ -12,12 +12,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getISOStringDate = exports.verifyPass = exports.hashPass = exports.generateCode = exports.uploadFile = exports.validate = exports.writeLog = void 0;
+exports.sendNotifi = exports.sendHistory = exports.getISOStringDate = exports.verifyPass = exports.hashPass = exports.generateCode = exports.uploadFile = exports.validate = exports.writeLog = void 0;
 /** @format */
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const firebase_1 = __importDefault(require("../utils/firebase"));
+const system_1 = require("../service/system");
+const socket_1 = require("../utils/socket");
+const telegram_1 = require("../utils/telegram");
+const nodemail_1 = require("../utils/nodemail");
+const auth_1 = require("../service/auth");
 const writeLog = (code, message, req) => {
     let logPath = path_1.default.join(process.cwd(), "logs", "logs.csv");
     let date = new Date().toString();
@@ -39,28 +44,32 @@ const writeLog = (code, message, req) => {
     });
 };
 exports.writeLog = writeLog;
-const validate = (data, valid, next) => {
+const validate = (data, valid) => {
     try {
         let fields = Object.keys(data);
         for (var i = 0; i < valid.length; i++) {
             let item = valid[i];
             if (item.isRequire) {
                 if (!fields.includes(item.name) || typeof data[item.name] != item.type) {
-                    throw next(new Error(`${400}:${"Validate data fail !"}`));
+                    return false;
                 }
-                else {
-                    if (item.regExp != undefined && typeof data[item.name] == "string") {
-                        if (!data[item.name].match(item.regExp)) {
-                            throw next(new Error(`${400}:${"Validate data fail !"}`));
-                        }
-                    }
+            }
+            if (item.regExp != undefined && typeof data[item.name] == "string") {
+                if (!data[item.name].match(item.regExp)) {
+                    return false;
                 }
             }
         }
-        throw data;
+        for (var i = 0; i < fields.length; i++) {
+            if (!valid.some((item) => item.name == fields[i])) {
+                return false;
+            }
+        }
+        return data;
     }
     catch (e) {
-        throw next(new Error(`${400}:${"Validate data fail !"}`));
+        console.log(e.message);
+        return false;
     }
 };
 exports.validate = validate;
@@ -109,3 +118,28 @@ const getISOStringDate = (date) => {
     return date.toISOString();
 };
 exports.getISOStringDate = getISOStringDate;
+const sendHistory = (content, userIDAction, actionObject) => __awaiter(void 0, void 0, void 0, function* () {
+    var history = {
+        actionObject: actionObject,
+        content: content,
+        time: getISOStringDate(new Date()),
+        userIDAction: userIDAction,
+    };
+    yield (0, system_1.addHistory)(history);
+    (0, telegram_1.botNotifi)(history.content);
+    socket_1.io.emit(`${history.userIDAction}`, `${history}`);
+});
+exports.sendHistory = sendHistory;
+const sendNotifi = (content, userID, actionObject) => __awaiter(void 0, void 0, void 0, function* () {
+    var notifi = {
+        actionObject: actionObject,
+        content: content,
+        time: getISOStringDate(new Date()),
+        userID: userID,
+    };
+    const find = yield (0, auth_1.findUserByUserID)(userID);
+    (0, nodemail_1.sendNotiMail)(find.username, `Xin chào anh/chị ${find.name},\nChúng tôi xin thông báo về tình trạng đơn hàng của bạn. \n${content}.\nQuý khách vui lòng theo dổi thông tin đơn hàng.Mọi chi tết xin liên hệ dikhang4study@gmail.com`);
+    yield (0, system_1.addNotifi)(notifi);
+    socket_1.io.emit(`${notifi.userID}`, `${notifi}`);
+});
+exports.sendNotifi = sendNotifi;

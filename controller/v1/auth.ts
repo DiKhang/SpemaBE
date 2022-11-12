@@ -1,427 +1,453 @@
 /** @format */
 import { Response, Request, NextFunction } from "express";
-import { generateCode, getISOStringDate, hashPass, validate, verifyPass } from "../../common";
+import {
+  generateCode,
+  getISOStringDate,
+  hashPass,
+  validate,
+  verifyPass,
+} from "../../common";
 import { User } from "../../interface/auth";
 import {
-	activeUser,
-	addUser,
-	findUser,
-	findUserByUserID,
-	getAllUser,
-	updateActiveByUserID,
-	updateCode,
-	updatePass,
-	updatePassByUserID,
-	updateProfile,
+  activeUser,
+  addUser,
+  findUser,
+  findUserByUserID,
+  getAllUser,
+  updateActiveByUserID,
+  updateCode,
+  updatePass,
+  updatePassByUserID,
+  updateProfile,
 } from "../../service/auth";
 import { signToken, verifyToken } from "../../utils/jwt";
 import { sendCode as sendMail } from "../../utils/nodemail";
 import {
-	activeValid,
-	changePassValid,
-	forgotPassValid,
-	loginValid,
-	managerValid,
-	registerValid,
-	resendCodeValid,
-	updateUserValid,
+  activeValid,
+  changePassValid,
+  forgotPassValid,
+  loginValid,
+  managerValid,
+  registerValid,
+  resendCodeValid,
+  updateUserValid,
 } from "../../validate/auth";
+import { v4 as uuidv4 } from "uuid";
 
 const register = async (req: Request, res: Response, next: NextFunction) => {
-	try {
-		var body = req.body;
-		var validBody: any = validate(body, registerValid);
-		var now = new Date();
+  try {
+    var body = req.body;
+    var validBody: any = validate(body, registerValid);
+    var now = new Date();
 
-		if (!validBody) {
-			return next(new Error(`${500}:${`Validate data fail`}`));
-		}
+    if (!validBody) {
+      return next(new Error(`${500}:${`Validate data fail`}`));
+    }
 
-		const find: any = await findUser(validBody.username);
+    const find: any = await findUser(validBody.username);
 
-		//username has exist
-		if (find) {
-			return next(new Error(`${500}:${`Username has exist !`}`));
-		}
+    //username has exist
+    if (find) {
+      return next(new Error(`${500}:${`Username has exist !`}`));
+    }
 
-		//get All user
-		const allUser = await getAllUser();
+    //generate code active
+    const code = generateCode();
 
-		//generate code active
-		const code = generateCode();
+    //send code to mail
+    const send = await sendMail(validBody.username, code);
 
-		//send code to mail
-		const send = await sendMail(validBody.username, code);
+    //check send code done
+    if (!send) {
+      return next(
+        new Error(`${500}:${`Register fail send code active fail !`}`)
+      );
+    }
 
-		//check send code done
-		if (!send) {
-			return next(new Error(`${500}:${`Register fail send code active fail !`}`));
-		}
+    var user: User = {
+      active: false,
+      birthDay: validBody.birthDay,
+      activeAt: "",
+      createAt: getISOStringDate(now),
+      code: code,
+      name: validBody.name,
+      password: await hashPass(validBody.password),
+      gender: validBody.gender,
+      userID: uuidv4(),
+      username: validBody.username,
+      jobName: validBody.jobName,
+      role: "user",
+    };
 
-		var user: User = {
-			active: false,
-			birthDay: validBody.birthDay,
-			activeAt: "",
-			createAt: getISOStringDate(now),
-			code: code,
-			name: validBody.name,
-			password: await hashPass(validBody.password),
-			phone: validBody.phone,
-			gender: validBody.gender,
-			rank: "normal",
-			userID: allUser.length + 1,
-			username: validBody.username,
-			role: "user",
-		};
+    //insert user
+    const add = await addUser(user);
 
-		//insert user
-		const add = await addUser(user);
+    //check add user success
+    if (add) {
+      console.log(`Add user ${add.toString()} Success !`);
+    } else {
+      return next(new Error(`${500}:${`Add user fail, insert user error .`}`));
+    }
 
-		//check add user success
-		if (add) {
-			console.log(`Add user ${add.toString()} Success !`);
-		} else {
-			return next(new Error(`${500}:${`Add user fail, insert user error .`}`));
-		}
+    delete user.password;
 
-		//send user object
-		return res.send({
-			status: true,
-			data: user,
-		});
-	} catch (e: any) {
-		return next(new Error(`${500}:${e.message}`));
-	}
+    //send user object
+    return res.send({
+      status: true,
+      data: user,
+    });
+  } catch (e: any) {
+    return next(new Error(`${500}:${e.message}`));
+  }
 };
 
 const login = async (req: Request, res: Response, next: NextFunction) => {
-	try {
-		var body = req.body;
-		var validBody: any = validate(body, loginValid);
+  try {
+    var body = req.body;
+    var validBody: any = validate(body, loginValid);
 
-		if (!validBody) {
-			return next(new Error(`${500}:${`Validate data fail`}`));
-		}
+    if (!validBody) {
+      return next(new Error(`${500}:${`Validate data fail`}`));
+    }
 
-		const find: any = await findUser(validBody.username);
+    const find: any = await findUser(validBody.username);
 
-		if (!find) {
-			return next(new Error(`${500}:${`Cannot find user`}`));
-		}
+    if (!find) {
+      return next(new Error(`${500}:${`Cannot find user`}`));
+    }
 
-		if (!find.active) {
-			return next(new Error(`${500}:${`Account not active`}`));
-		}
+    if (!find.active) {
+      return next(new Error(`${500}:${`Account not active`}`));
+    }
 
-		var accessToken = "";
-		var refreshToken = "";
+    var accessToken = "";
+    var refreshToken = "";
 
-		//create new accessToken if have refreshToken in body
-		if (validBody.refreshToken && verifyToken(validBody.refreshToken)) {
-			delete find.password;
-			delete find.code;
-			accessToken = signToken(find);
-			refreshToken = signToken(find, true);
-		} else {
-			const passValid = await verifyPass(validBody.password, find.password);
+    //create new accessToken if have refreshToken in body
+    if (validBody.refreshToken && verifyToken(validBody.refreshToken)) {
+      delete find.password;
+      delete find.code;
+      accessToken = signToken(find);
+      refreshToken = signToken(find, true);
+    } else {
+      const passValid = await verifyPass(validBody.password, find.password);
 
-			if (!passValid) {
-				return next(new Error(`${500}:${`Password wrong `}`));
-			}
+      if (!passValid) {
+        return next(new Error(`${500}:${`Password wrong `}`));
+      }
 
-			delete find.password;
-			delete find.code;
+      delete find.password;
+      delete find.code;
 
-			accessToken = signToken(find);
-			refreshToken = signToken(find, true);
-		}
+      accessToken = signToken(find);
+      refreshToken = signToken(find, true);
+    }
 
-		return res.send({
-			status: true,
-			data: {
-				accessToken,
-				refreshToken,
-			},
-		});
-	} catch (e: any) {
-		return next(new Error(`${500}:${e.message}`));
-	}
+    return res.send({
+      status: true,
+      data: {
+        accessToken,
+        refreshToken,
+      },
+    });
+  } catch (e: any) {
+    return next(new Error(`${500}:${e.message}`));
+  }
 };
 
 const active = async (req: Request, res: Response, next: NextFunction) => {
-	try {
-		var body = req.body;
-		var validBody: any = validate(body, activeValid);
+  try {
+    var body = req.body;
+    var validBody: any = validate(body, activeValid);
 
-		if (!validBody) {
-			return next(new Error(`${500}:${`Validate data fail`}`));
-		}
+    if (!validBody) {
+      return next(new Error(`${500}:${`Validate data fail`}`));
+    }
 
-		const find: any = await findUser(validBody.username);
+    const find: any = await findUser(validBody.username);
 
-		if (!find) {
-			return next(new Error(`${500}:${`Cannot find user !`}`));
-		}
+    if (!find) {
+      return next(new Error(`${500}:${`Cannot find user !`}`));
+    }
 
-		if (find.active) {
-			return next(new Error(`${500}:${`User is active !`}`));
-		}
+    if (find.active) {
+      return next(new Error(`${500}:${`User is active !`}`));
+    }
 
-		if (validBody.code != find.code) {
-			return next(new Error(`${500}:${`Code wrong !`}`));
-		}
+    if (validBody.code != find.code) {
+      return next(new Error(`${500}:${`Code wrong !`}`));
+    }
 
-		const active = await activeUser(validBody.username);
+    const active = await activeUser(validBody.username);
 
-		if (!active) return next(new Error(`${500}:${"Active fail cannot update db !"}`));
+    if (!active)
+      return next(new Error(`${500}:${"Active fail cannot update db !"}`));
 
-		delete find.password;
+    delete find.password;
 
-		return res.send({
-			status: true,
-			data: find,
-		});
-	} catch (e: any) {
-		return next(new Error(`${500}:${e.message}`));
-	}
+    return res.send({
+      status: true,
+      data: { ...find, active: true },
+    });
+  } catch (e: any) {
+    return next(new Error(`${500}:${e.message}`));
+  }
 };
 
 const sendCode = async (req: Request, res: Response, next: NextFunction) => {
-	try {
-		var body = req.body;
-		var validBody: any = validate(body, resendCodeValid);
+  try {
+    var body = req.body;
+    var validBody: any = validate(body, resendCodeValid);
 
-		if (!validBody) {
-			return next(new Error(`${500}:${`Validate data fail`}`));
-		}
+    if (!validBody) {
+      return next(new Error(`${500}:${`Validate data fail`}`));
+    }
 
-		const find: any = await findUser(validBody.username);
+    const find: any = await findUser(validBody.username);
 
-		if (!find) {
-			return next(new Error(`${500}:${`Cannot find user`}`));
-		}
+    if (!find) {
+      return next(new Error(`${500}:${`Cannot find user`}`));
+    }
 
-		//generate code active
-		const code = generateCode();
+    //generate code active
+    const code = generateCode();
 
-		//send code to mail
-		const send = await sendMail(validBody.username, code);
+    //send code to mail
+    const send = await sendMail(validBody.username, code);
 
-		//check send code done
-		if (!send) {
-			return next(new Error(`${500}:${`Resend code fail send code fail !`}`));
-		}
+    //check send code done
+    if (!send) {
+      return next(new Error(`${500}:${`Resend code fail send code fail !`}`));
+    }
 
-		const update = await updateCode(validBody.username, code);
+    const update = await updateCode(validBody.username, code);
 
-		if (!update) {
-			return next(new Error(`${500}:${`Resend code fail cannot update db !`}`));
-		}
+    if (!update) {
+      return next(new Error(`${500}:${`Resend code fail cannot update db !`}`));
+    }
 
-		return res.send({
-			status: true,
-		});
-	} catch (e: any) {
-		return next(new Error(`${500}:${e.message}`));
-	}
+    return res.send({
+      status: true,
+    });
+  } catch (e: any) {
+    return next(new Error(`${500}:${e.message}`));
+  }
 };
 
 const forgotPass = async (req: Request, res: Response, next: NextFunction) => {
-	try {
-		var body = req.body;
-		var validBody: any = validate(body, forgotPassValid);
+  try {
+    var body = req.body;
+    var validBody: any = validate(body, forgotPassValid);
 
-		if (!validBody) {
-			return next(new Error(`${500}:${`Validate data fail`}`));
-		}
+    if (!validBody) {
+      return next(new Error(`${500}:${`Validate data fail`}`));
+    }
 
-		const find: any = await findUser(validBody.username);
+    const find: any = await findUser(validBody.username);
 
-		if (!find) {
-			return next(new Error(`${500}:${`Cannot find user`}`));
-		}
+    if (!find) {
+      return next(new Error(`${500}:${`Cannot find user`}`));
+    }
 
-		if (find.code != validBody.code) {
-			return next(new Error(`${500}:${`Code wrong `}`));
-		}
+    if (find.code != validBody.code) {
+      return next(new Error(`${500}:${`Code wrong `}`));
+    }
 
-		const newPassword = await hashPass(validBody.password);
+    const newPassword = await hashPass(validBody.password);
 
-		const update = await updatePass(validBody.username, newPassword);
+    const update = await updatePass(validBody.username, newPassword);
 
-		if (!update) {
-			return next(new Error(`${500}:${`Forgot pass fail cannot update db !`}`));
-		}
+    if (!update) {
+      return next(new Error(`${500}:${`Forgot pass fail cannot update db !`}`));
+    }
 
-		return res.send({
-			status: true,
-		});
-	} catch (e: any) {
-		return next(new Error(`${500}:${e.message}`));
-	}
+    return res.send({
+      status: true,
+    });
+  } catch (e: any) {
+    return next(new Error(`${500}:${e.message}`));
+  }
 };
 
 const updateUser = async (req: any, res: Response, next: NextFunction) => {
-	try {
-		var body = req.body;
-		var validBody: any = validate(body, updateUserValid);
-		var user = req.user;
+  try {
+    var body = req.body;
+    var validBody: any = validate(body, updateUserValid);
+    var user = req.user;
 
-		if (!validBody) {
-			return next(new Error(`${500}:${`Validate data fail`}`));
-		}
+    if (!validBody) {
+      return next(new Error(`${500}:${`Validate data fail`}`));
+    }
 
-		const find = await findUserByUserID(user.userID);
+    const find = await findUserByUserID(user.userID);
 
-		if (!find) {
-			return next(new Error(`${500}:${`Cannot find user`}`));
-		}
+    if (!find) {
+      return next(new Error(`${500}:${`Cannot find user`}`));
+    }
 
-		const update = await updateProfile(user.userID, validBody);
+    const update = await updateProfile(user.userID, validBody);
 
-		if (!update) {
-			return next(new Error(`${500}:${`Update profile fail cannot update db !`}`));
-		}
+    if (!update) {
+      return next(
+        new Error(`${500}:${`Update profile fail cannot update db !`}`)
+      );
+    }
 
-		return res.send({
-			status: true,
-			data: {
-				...validBody,
-			},
-		});
-	} catch (e: any) {
-		return next(new Error(`${500}:${e.message}`));
-	}
+    return res.send({
+      status: true,
+      data: {
+        ...validBody,
+      },
+    });
+  } catch (e: any) {
+    return next(new Error(`${500}:${e.message}`));
+  }
 };
 
-const changePass = async (req: Request | any, res: Response, next: NextFunction) => {
-	try {
-		var body = req.body;
-		var validBody: any = validate(body, changePassValid);
-		var user = req.user;
+const changePass = async (
+  req: Request | any,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    var body = req.body;
+    var validBody: any = validate(body, changePassValid);
+    var user = req.user;
 
-		if (!validBody) {
-			return next(new Error(`${500}:${`Validate data fail`}`));
-		}
+    if (!validBody) {
+      return next(new Error(`${500}:${`Validate data fail`}`));
+    }
 
-		const find = await findUserByUserID(user.userID);
+    const find = await findUserByUserID(user.userID);
 
-		if (!find) {
-			return next(new Error(`${500}:${`Cannot find user`}`));
-		}
+    if (!find) {
+      return next(new Error(`${500}:${`Cannot find user`}`));
+    }
 
-		const validPass = await verifyPass(validBody.password, find.password);
+    const validPass = await verifyPass(validBody.password, find.password);
 
-		if (!validPass) {
-			return next(new Error(`${500}:${`Password wrong`}`));
-		}
+    if (!validPass) {
+      return next(new Error(`${500}:${`Password wrong`}`));
+    }
 
-		const newPassword = await hashPass(validBody.newPassword);
+    const newPassword = await hashPass(validBody.newPassword);
 
-		const update = await updatePassByUserID(user.userID, newPassword);
+    const update = await updatePassByUserID(user.userID, newPassword);
 
-		if (!update) {
-			return next(new Error(`${500}:${`Update pass fail cannot update db`}`));
-		}
+    if (!update) {
+      return next(new Error(`${500}:${`Update pass fail cannot update db`}`));
+    }
 
-		return res.send({
-			status: true,
-		});
-	} catch (e: any) {
-		return next(new Error(`${500}:${e.message}`));
-	}
+    return res.send({
+      status: true,
+    });
+  } catch (e: any) {
+    return next(new Error(`${500}:${e.message}`));
+  }
 };
 
-const manager = async (req: Request | any, res: Response, next: NextFunction) => {
-	try {
-		var body = req.body;
-		var validBody: any = validate(body, managerValid);
-		var user = req.user;
+const manager = async (
+  req: Request | any,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    var body = req.body;
+    var validBody: any = validate(body, managerValid);
+    var user = req.user;
 
-		if (!validBody) {
-			return next(new Error(`${500}:${`Validate data fail`}`));
-		}
+    if (!validBody) {
+      return next(new Error(`${500}:${`Validate data fail`}`));
+    }
 
-		const find = await findUserByUserID(user.userID);
+    const find = await findUserByUserID(user.userID);
 
-		if (!find) {
-			return next(new Error(`${500}:${`Cannot find user`}`));
-		}
+    if (!find) {
+      return next(new Error(`${500}:${`Cannot find user`}`));
+    }
 
-		if (user.role != "admin") {
-			return next(new Error(`${500}:${`Permisson dined `}`));
-		}
+    if (user.role != "admin") {
+      return next(new Error(`${500}:${`Permisson dined `}`));
+    }
 
-		var update = await updateActiveByUserID(validBody.userID, validBody.active);
+    var update = await updateActiveByUserID(validBody.userID, validBody.active);
 
-		if (!update) {
-			return next(new Error(`${500}:${`Update active fail cannot update db`}`));
-		}
+    if (!update) {
+      return next(new Error(`${500}:${`Update active fail cannot update db`}`));
+    }
 
-		return res.send({
-			status: true,
-		});
-	} catch (e: any) {
-		return next(new Error(`${500}:${e.message}`));
-	}
+    return res.send({
+      status: true,
+    });
+  } catch (e: any) {
+    return next(new Error(`${500}:${e.message}`));
+  }
 };
 
-const getFullUser = async (req: Request | any, res: Response, next: NextFunction) => {
-	try {
-		var user = req.user;
+const getFullUser = async (
+  req: Request | any,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    var user = req.user;
 
-		const find = await findUserByUserID(user.userID);
+    const find = await findUserByUserID(user.userID);
 
-		if (!find) {
-			return next(new Error(`${500}:${`Cannot find user`}`));
-		}
+    if (!find) {
+      return next(new Error(`${500}:${`Cannot find user`}`));
+    }
 
-		if (user.role != "admin") {
-			return next(new Error(`${500}:${`Permisson dined `}`));
-		}
+    if (user.role != "admin") {
+      return next(new Error(`${500}:${`Permisson dined `}`));
+    }
 
-		const fullUser = (await getAllUser()).filter((item) => {
-			delete item.password;
-			delete item.code;
-			if (item.role != "admin") return item;
-		});
+    const fullUser = (await getAllUser()).filter((item) => {
+      delete item.password;
+      delete item.code;
+      if (item.role != "admin") return item;
+    });
 
-		return res.send({
-			status: true,
-			data: fullUser,
-		});
-	} catch (e: any) {
-		return next(new Error(`${500}:${e.message}`));
-	}
+    return res.send({
+      status: true,
+      data: fullUser,
+    });
+  } catch (e: any) {
+    return next(new Error(`${500}:${e.message}`));
+  }
 };
 
-const getUser = async (req: Request | any, res: Response, next: NextFunction) => {
-	try {
-		const user = req.user;
+const getUser = async (
+  req: Request | any,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const user = req.user;
 
-		const find: any = await findUserByUserID(user.userID);
+    const find: any = await findUserByUserID(user.userID);
 
-		delete find.password;
-		delete find.code;
+    delete find.password;
+    delete find.code;
 
-		return res.send({
-			status: true,
-			data: find,
-		});
-	} catch (e: any) {
-		return next(new Error(`${500}:${e.message}`));
-	}
+    return res.send({
+      status: true,
+      data: find,
+    });
+  } catch (e: any) {
+    return next(new Error(`${500}:${e.message}`));
+  }
 };
 
 export {
-	register,
-	login,
-	active,
-	sendCode,
-	forgotPass,
-	updateUser,
-	changePass,
-	manager,
-	getFullUser,
-	getUser,
+  register,
+  login,
+  active,
+  sendCode,
+  forgotPass,
+  updateUser,
+  changePass,
+  manager,
+  getFullUser,
+  getUser,
 };

@@ -1,20 +1,18 @@
 /** @format */
 
 import express from "express";
-import { Response, Request, NextFunction } from "express";
-import { handleUploadFile } from "../../controller/intex";
-import { auth, upload } from "../../utils/middleware";
+import { auth } from "../../utils/middleware";
 import {
-	active,
-	changePass,
-	forgotPass,
-	getFullUser,
-	getUser,
-	login,
-	manager,
-	register,
-	sendCode,
-	updateUser,
+  active,
+  changePass,
+  forgotPass,
+  getFullUser,
+  getUser,
+  login,
+  manager,
+  register,
+  sendCode,
+  updateUser,
 } from "../../controller/v1/auth";
 
 const router = express.Router();

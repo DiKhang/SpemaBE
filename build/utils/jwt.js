@@ -8,10 +8,12 @@ exports.verifyToken = exports.signToken = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
-const signToken = (payLoad) => {
+const signToken = (payLoad, refresh) => {
     var keyPath = path_1.default.join(process.cwd(), "key", "private.key");
     var privateKey = fs_1.default.readFileSync(keyPath).toString();
-    var token = jsonwebtoken_1.default.sign(Object.assign(Object.assign({}, payLoad), { exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 }), //token exp 24h
+    var token = jsonwebtoken_1.default.sign(Object.assign(Object.assign({}, payLoad), { exp: refresh
+            ? Math.floor(Date.now() / 1000) + 60 * 60 * 48
+            : Math.floor(Date.now() / 1000) + 60 * 60 * 24 }), //token exp 24h
     privateKey, { algorithm: "RS256" });
     return token;
 };

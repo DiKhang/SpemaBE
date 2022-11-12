@@ -28,6 +28,7 @@ var corsOptions = {
 require("dotenv").config();
 // Initialize Swagger Express Middleware with our Swagger file
 let swaggerFile = path_1.default.join(process.cwd(), "swagger", "docs.yaml");
+app.use("/uploads", express_1.default.static("uploads"));
 app.use(express_1.default.json());
 app.use((0, cors_1.default)({
     origin: "*", //enable all cors
