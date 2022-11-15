@@ -148,6 +148,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
       data: {
         accessToken,
         refreshToken,
+        user: { ...find },
       },
     });
   } catch (e: any) {
