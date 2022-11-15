@@ -12,11 +12,11 @@ const insertMany = async (req: any, res: Response, next: NextFunction) => {
 
   if (!collection) return next(new Error("400:Collection is required !"));
 
-  if (!Array.isArray(body))
+  if (!Array.isArray(body.data))
     return next(new Error("400:Body should be is array !"));
 
   try {
-    await db.collection(collection).insertMany(body);
+    await db.collection(collection).insertMany(body.data);
 
     return res.status(200).json({ status: true });
   } catch (err: any) {

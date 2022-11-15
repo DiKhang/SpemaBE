@@ -107,17 +107,17 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
     var validBody: any = validate(body, loginValid);
 
     if (!validBody) {
-      return next(new Error(`${500}:${`Validate data fail`}`));
+      return next(new Error(`${260}:${`Validate data fail`}`));
     }
 
     const find: any = await findUser(validBody.username);
 
     if (!find) {
-      return next(new Error(`${500}:${`Cannot find user`}`));
+      return next(new Error(`${250}:${`Không thể tìm thấy tài khoản`}`));
     }
 
     if (!find.active) {
-      return next(new Error(`${500}:${`Account not active`}`));
+      return next(new Error(`${240}:${`Tài khoản này chưa được kích hoạt`}`));
     }
 
     var accessToken = "";
@@ -133,7 +133,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
       const passValid = await verifyPass(validBody.password, find.password);
 
       if (!passValid) {
-        return next(new Error(`${500}:${`Password wrong `}`));
+        return next(new Error(`${230}:${`Mật khẩu sai vui lòng nhập lại ! `}`));
       }
 
       delete find.password;
